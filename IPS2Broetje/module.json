@@ -7,8 +7,8 @@
   [
     "IPS2Broetje"
   ],
-  "parentRequirements": [],
+  "parentRequirements": ["{E310B701-4AE7-458E-B618-EC13A1A6F6A8}"],
   "childRequirements": [],
-  "implemented": [],
+  "implemented": ["{77B31ABB-18FA-4B91-BB63-E5B2AB5588F4}"],
   "prefix": "IPS2Broetje"
 }
