@@ -103,6 +103,19 @@
 				}
 			}
 			return $Response;	
+			
+			
+			/*
+				$StatusVariables = array();
+$StatusVariables = array(1024 => array("Betriebsart", 1), 1025 => array("Komfortsollwert", 64),
+    1026 => array("Reduziertsollwert", 64), 1027 => array("Frostschutzsollwert", 64), 
+    1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64)
+    1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand", 64));
+
+print_r($StatusVariables);
+			
+			*/
+			
 		}
 	}
 			
