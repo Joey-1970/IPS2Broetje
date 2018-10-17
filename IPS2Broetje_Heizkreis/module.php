@@ -1,4 +1,3 @@
-
 <?
     // Klassendefinition
     class IPS2Broetje_Heizkreis extends IPSModule 
@@ -15,7 +14,8 @@
         {
             	// Diese Zeile nicht löschen.
             	parent::Create();
-                $this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
+		
+		$this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
 	
             	$this->RegisterPropertyBoolean("Open", false);
 		$this->RegisterPropertyInteger("HeatingCircuit", 0);
@@ -134,13 +134,10 @@
 			
 			/*
 				$StatusVariables = array();
-$StatusVariables = array(1024 => array("Betriebsart", 1), 1025 => array("Komfortsollwert", 64),
-    1026 => array("Reduziertsollwert", 64), 1027 => array("Frostschutzsollwert", 64), 
-    1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64)
-    1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand", 64));
-
-print_r($StatusVariables);
-			
+				$StatusVariables = array(1024 => array("Betriebsart", 1), 1025 => array("Komfortsollwert", 64),
+    					1026 => array("Reduziertsollwert", 64), 1027 => array("Frostschutzsollwert", 64), 
+    					1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64)
+    					1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand", 64));
 			*/
 			
 		}
