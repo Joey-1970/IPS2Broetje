@@ -18,7 +18,7 @@
               $this->RequireParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
 	
             	$this->RegisterPropertyBoolean("Open", false);
-		
+		$this->RegisterPropertyInteger("HeatingCircuit", 0);
 		$this->RegisterPropertyInteger("Timer_1", 60);
 		$this->RegisterTimer("Timer_1", 0, 'IPS2BroetjeHeizkreis_GetState($_IPS["TARGET"]);');
 		
@@ -38,7 +38,14 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
  		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+		$arrayElements[] = array("type" => "Label", "label" => "Wahl des Heizkreises (1-3)");
+		$arrayOptions = array();
+		$arrayOptions[] = array("label" => "Heizkreis 1", "value" => 0);
+		$arrayOptions[] = array("label" => "Heizkreis 2", "value" => 3072);
+		$arrayOptions[] = array("label" => "Heizkreis 3", "value" => 6144);
+		$arrayElements[] = array("type" => "Select", "name" => "HeatingCircuit", "caption" => "Heizkreis", "options" => $arrayOptions );
 		
+		$arrayElements[] = array("type" => "Label", "label" => "Auslesezyklus (Sekunden)");
 		$arrayElements[] = array("type" => "IntervalBox", "name" => "Timer_1", "caption" => "s");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
 		 
@@ -50,6 +57,26 @@
         {
                 // Diese Zeile nicht löschen
                 parent::ApplyChanges();
+		
+		// Profile anlegen
+		this->RegisterProfileInteger("IPS2Broetje.OperatingMode", "Information", "", "", 0, 3, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 0, "Schutzbetrieb", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 1, "Automatik", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 2, "Reduziert", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 3, "Komfort", "Information", -1);
+		
+		// Status-Variablen anlegen
+		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
+		$this->EnableAction("Betriebsart");
+		
+		$this->RegisterVariableFloat("Komfortsollwert", "Komfortsollwert", "~Temperature", 20);
+		$this->EnableAction("Komfortsollwert");
+		
+		$this->RegisterVariableFloat("Reduziertsollwert", "Reduziertsollwert", "~Temperature", 30);
+		$this->EnableAction("Reduziertsollwert");
+		
+		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutzsollwert", "~Temperature", 40);
+		$this->EnableAction("Frostschutzsollwert");
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
@@ -118,7 +145,23 @@ print_r($StatusVariables);
 			
 		}
 	}
-			
+	
+	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 1);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 1)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);    
+	}    
 	    
 	private function GetParentID()
 	{
