@@ -15,7 +15,7 @@
         {
             	// Diese Zeile nicht löschen.
             	parent::Create();
-              $this->RequireParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
+                $this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
 	
             	$this->RegisterPropertyBoolean("Open", false);
 		$this->RegisterPropertyInteger("HeatingCircuit", 0);
