@@ -108,6 +108,12 @@
 		$this->RegisterVariableInteger("StatusCommand_3", "StatusCommand_3", "", 140);
 		$this->EnableAction("StatusCommand_3");
 		
+		$this->RegisterVariableInteger("Raumeinfluss", "Raumeinfluss", "~Intensity.100", 150);
+           	$this->EnableAction("Raumeinfluss");
+		
+		$this->RegisterVariableInteger("StatusCommand_4", "StatusCommand_4", "", 160);
+		$this->EnableAction("StatusCommand_4");
+		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
 			$this->SetStatus(102);
@@ -171,7 +177,7 @@
 					1032 => array("Tagesheizgrenze", 64), 1033 => array("StatusCommand_2", 1),
 					1034 => array("VorlaufsollwertMinimum", 64), 1035 => array("VorlaufsollwertMaximum", 64), 
 					1036 => array("VorlaufsollwertRaumthermostat", 64), 1037 => array("StatusCommand_3", 1),
-					
+					1038 => array("Raumeinfluss", 1), 1039 => array("StatusCommand_4", 1),
 					);
 			*/
 			
