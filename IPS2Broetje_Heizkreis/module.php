@@ -96,6 +96,18 @@
 		$this->RegisterVariableInteger("StatusCommand_2", "StatusCommand_2", "", 100);
 		$this->EnableAction("StatusCommand_2");
 		
+		$this->RegisterVariableFloat("VorlaufsollwertMinimum", "Vorlaufsollwert Minimum", "~Temperature", 110);
+		$this->EnableAction("VorlaufsollwertMinimum");
+		
+		$this->RegisterVariableFloat("VorlaufsollwertMaximum", "Vorlaufsollwert Maximum", "~Temperature", 120);
+		$this->EnableAction("VorlaufsollwertMaximum");
+		
+		$this->RegisterVariableFloat("VorlaufsollwertRaumthermostat", "Vorlaufsollwert Raumthermostat", "~Temperature", 130);
+		$this->EnableAction("VorlaufsollwertRaumthermostat");
+		
+		$this->RegisterVariableInteger("StatusCommand_3", "StatusCommand_3", "", 140);
+		$this->EnableAction("StatusCommand_3");
+		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
 			$this->SetStatus(102);
@@ -156,7 +168,11 @@
     					1026 => array("Reduziertsollwert", 64), 1027 => array("Frostschutzsollwert", 64), 
     					1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64),
     					1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand_1", 1),
-					1032 => array("Tagesheizgrenze", 64), 1033 => array("StatusCommand_2", 1));
+					1032 => array("Tagesheizgrenze", 64), 1033 => array("StatusCommand_2", 1),
+					1034 => array("VorlaufsollwertMinimum", 64), 1035 => array("VorlaufsollwertMaximum", 64), 
+					1036 => array("VorlaufsollwertRaumthermostat", 64), 1037 => array("StatusCommand_3", 1),
+					
+					);
 			*/
 			
 		}
