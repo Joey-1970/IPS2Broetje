@@ -84,8 +84,17 @@
 		$this->RegisterVariableFloat("KennlinieVerschiebung", "KennlinieVerschiebung", "~Temperature", 60);
 		$this->EnableAction("KennlinieVerschiebung");
 		
-		$this->RegisterVariableInteger("StatusCommand_1", "StatusCommand_1", "", 70);
+		$this->RegisterVariableFloat("SommerWinterheizgrenze", "SommerWinterheizgrenze", "~Temperature", 70);
+		$this->EnableAction("SommerWinterheizgrenze");
+		
+		$this->RegisterVariableInteger("StatusCommand_1", "StatusCommand_1", "", 80);
 		$this->EnableAction("StatusCommand_1");
+		
+		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~Temperature", 90);
+		$this->EnableAction("Tagesheizgrenze");
+		
+		$this->RegisterVariableInteger("StatusCommand_2", "StatusCommand_2", "", 100);
+		$this->EnableAction("StatusCommand_2");
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
@@ -145,8 +154,9 @@
 				$StatusVariables = array();
 				$StatusVariables = array(1024 => array("Betriebsart", 1), 1025 => array("Komfortsollwert", 64),
     					1026 => array("Reduziertsollwert", 64), 1027 => array("Frostschutzsollwert", 64), 
-    					1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64)
-    					1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand_1", 1));
+    					1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64),
+    					1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand_1", 1),
+					1032 => array("Tagesheizgrenze", 64), 1033 => array("StatusCommand_2", 1));
 			*/
 			
 		}
