@@ -65,6 +65,10 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 2, "Reduziert", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 3, "Komfort", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2Broetje.RoomThermostat", "Information", "", "", 0, 3, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 0, "Kein Bedarf", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 1, "Bedarf", "Information", -1);
+		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
 		$this->EnableAction("Betriebsart");
@@ -87,13 +91,13 @@
 		$this->RegisterVariableFloat("SommerWinterheizgrenze", "SommerWinterheizgrenze", "~Temperature", 70);
 		$this->EnableAction("SommerWinterheizgrenze");
 		
-		$this->RegisterVariableInteger("StatusCommand_1", "StatusCommand_1", "", 80);
+		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 80);
 		$this->EnableAction("StatusCommand_1");
 		
 		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~Temperature", 90);
 		$this->EnableAction("Tagesheizgrenze");
 		
-		$this->RegisterVariableInteger("StatusCommand_2", "StatusCommand_2", "", 100);
+		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 100);
 		$this->EnableAction("StatusCommand_2");
 		
 		$this->RegisterVariableFloat("VorlaufsollwertMinimum", "Vorlaufsollwert Minimum", "~Temperature", 110);
@@ -105,14 +109,29 @@
 		$this->RegisterVariableFloat("VorlaufsollwertRaumthermostat", "Vorlaufsollwert Raumthermostat", "~Temperature", 130);
 		$this->EnableAction("VorlaufsollwertRaumthermostat");
 		
-		$this->RegisterVariableInteger("StatusCommand_3", "StatusCommand_3", "", 140);
+		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 140);
 		$this->EnableAction("StatusCommand_3");
 		
 		$this->RegisterVariableInteger("Raumeinfluss", "Raumeinfluss", "~Intensity.100", 150);
            	$this->EnableAction("Raumeinfluss");
 		
-		$this->RegisterVariableInteger("StatusCommand_4", "StatusCommand_4", "", 160);
+		$this->RegisterVariableInteger("StatusCommand_4", "Status/Command 4", "", 160);
 		$this->EnableAction("StatusCommand_4");
+		
+		$this->RegisterVariableFloat("Raumtemperatur", "Raumtemperatur", "~Temperature", 170);
+		$this->RegisterVariableInteger("Status_5", "Status 5", "", 180);
+		
+		$this->RegisterVariableFloat("Raumsollwert", "Raumsollwert", "~Temperature", 190);
+		$this->RegisterVariableInteger("Status_6", "Status 6", "", 200);
+		
+		$this->RegisterVariableFloat("Vorlauftemperatur", "Vorlauftemperatur", "~Temperature", 210);
+		$this->RegisterVariableInteger("Status_7", "Status 7", "", 220);
+		
+		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlaufsollwert", "~Temperature", 230);
+		$this->RegisterVariableInteger("Status_8", "Status 8", "", 240);
+		
+		$this->RegisterVariableInteger("Raumthermostat", "Raumthermostat", "IPS2Broetje.RoomThermostat", 250); 
+		$this->RegisterVariableInteger("Status_9", "Status 9", "", 260);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
