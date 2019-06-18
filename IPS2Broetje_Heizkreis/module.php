@@ -70,6 +70,8 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 1, "Bedarf", "Information", -1);
 		
 		// Status-Variablen anlegen
+		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
+		
 		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
 		$this->EnableAction("Betriebsart");
 		
@@ -227,9 +229,19 @@
 					1037 => array("StatusCommand_3", 1),
 					1038 => array("Raumeinfluss", 1), 
 					1039 => array("StatusCommand_4", 1),
+					1042 => array("Raumtemperatur", 64),
+					1043 => array("Status_5", 1),
+					1044 => array("Raumsollwert", 64),
+					1045 => array("Status_6", 1),
+					1046 => array("Vorlauftemperatur", 64),
+					1047 => array("Status_7", 1),
+					1048 => array("Vorlaufsollwert", 64),
+					1049 => array("Status_8", 1),
+					1050 => array("Raumthermostat", 1),
+					1051 => array("Status_9", 1),
 					);
 			
-			
+			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
 			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
 			foreach ($StatusVariables as $Key => $Values) {
 				$Function = 3;
