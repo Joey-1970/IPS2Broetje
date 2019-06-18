@@ -209,7 +209,10 @@
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$Response = false;
-			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => "")));
+			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
+
+			
+			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
 			$Result = (unpack("n*", substr($Result,2)));
 			If (is_array($Result)) {
 				If (count($Result) == 1) {
