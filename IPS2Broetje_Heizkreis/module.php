@@ -243,6 +243,9 @@
 					If (count($Result) == 1) {
 						$Response = $Result[1];
 						$this->SendDebug("GetData", $Name.": ".($Response/$Devisor), 0);
+						If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
+							SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
+						}
 					}
 				}
 			}
