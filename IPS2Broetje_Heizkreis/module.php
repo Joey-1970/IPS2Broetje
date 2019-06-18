@@ -232,7 +232,7 @@
 			
 			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
 			foreach ($StatusVariables as $Key => $Values) {
-				$Function = 4;
+				$Function = 3;
 				$Address = $Key;
 				$Quantity = 1;
 				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
