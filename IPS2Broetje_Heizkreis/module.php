@@ -201,40 +201,48 @@
 	public function GetState()
 	{
 		If (($this->ReadPropertyBoolean("Open") == true) AND ($this->HasActiveParent() == true)) {
-			
+			$this->GetData();
 		}
 	}   
 	 
-	public function GetData(Int $Function, Int $Address, Int $Quantity)
+	public function GetData()
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$Response = false;
-			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
-
+			$StatusVariables = array();
+			$StatusVariables = array(
+					1024 => array("Betriebsart", 1), 
+					1025 => array("Komfortsollwert", 64),
+    					1026 => array("Reduziertsollwert", 64), 
+					1027 => array("Frostschutzsollwert", 64), 
+    					1028 => array("KennlinieSteilheit", 50), 
+					1029 => array("KennlinieVerschiebung", 64),
+    					1030 => array("SommerWinterheizgrenze", 64),
+					1031 => array("StatusCommand_1", 1),
+					1032 => array("Tagesheizgrenze", 64),
+					1033 => array("StatusCommand_2", 1),
+					1034 => array("VorlaufsollwertMinimum", 64), 
+					1035 => array("VorlaufsollwertMaximum", 64), 
+					1036 => array("VorlaufsollwertRaumthermostat", 64), 
+					1037 => array("StatusCommand_3", 1),
+					1038 => array("Raumeinfluss", 1), 
+					1039 => array("StatusCommand_4", 1),
+					);
 			
-			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
-			$Result = (unpack("n*", substr($Result,2)));
-			If (is_array($Result)) {
-				If (count($Result) == 1) {
-					$Response = $Result[1];
+			
+			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
+			foreach ($StatusVariables as $key => $Values) {
+				$Address = $Key;
+				$Quantity = 1;
+				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
+				$Result = (unpack("n*", substr($Result,2)));
+				If (is_array($Result)) {
+					If (count($Result) == 1) {
+						$Response = $Result[1];
+						$this->SendDebug("GetData", $Response, 0);
+					}
 				}
 			}
-			return $Response;	
-			
-			
-			/*
-				$StatusVariables = array();
-				$StatusVariables = array(1024 => array("Betriebsart", 1), 1025 => array("Komfortsollwert", 64),
-    					1026 => array("Reduziertsollwert", 64), 1027 => array("Frostschutzsollwert", 64), 
-    					1028 => array("KennlinieSteilheit", 50), 1029 => array("KennlinieVerschiebung", 64),
-    					1030 => array("SommerWinterheizgrenze", 64), 1031 => array("StatusCommand_1", 1),
-					1032 => array("Tagesheizgrenze", 64), 1033 => array("StatusCommand_2", 1),
-					1034 => array("VorlaufsollwertMinimum", 64), 1035 => array("VorlaufsollwertMaximum", 64), 
-					1036 => array("VorlaufsollwertRaumthermostat", 64), 1037 => array("StatusCommand_3", 1),
-					1038 => array("Raumeinfluss", 1), 1039 => array("StatusCommand_4", 1),
-					);
-			*/
-			
 		}
 	}
 	
