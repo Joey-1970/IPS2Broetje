@@ -135,7 +135,7 @@
 		$this->RegisterVariableInteger("Raumthermostat", "Raumthermostat", "IPS2Broetje.RoomThermostat", 250); 
 		$this->RegisterVariableInteger("Status_9", "Status 9", "", 260);
 		
-		$this->RegisterVariableInteger("StatusHeizkreis", "Raumthermostat", "", 270);
+		$this->RegisterVariableInteger("StatusHeizkreis", "Status Heizkreis", "", 270);
 		
 		$this->RegisterVariableBoolean("Heizkreis", "Heizkreis", "~Switch", 280);
 	        $this->EnableAction("Heizkreis");
@@ -161,11 +161,11 @@
 		$this->RegisterVariableInteger("DrehzahlHeizkreispumpe", "Drehzahl Heizkreispumpe", "~Intensity.100", 380);
 		$this->RegisterVariableInteger("Status_13", "Status 13", "", 390);
 		
-		$this->RegisterVariableInteger("PumpendrehzahlMinimum_2", "Pumpendrehzahl Minimum", "~Intensity.100", 390);
-           	$this->EnableAction("PumpendrehzahlMinimum_2");
+		$this->RegisterVariableInteger("PumpendrehzahlMinimum", "Pumpendrehzahl Minimum", "~Intensity.100", 390);
+           	$this->EnableAction("PumpendrehzahlMinimum");
 		
-		$this->RegisterVariableInteger("PumpendrehzahlMaximum_2", "Pumpendrehzahl Maximum", "~Intensity.100", 400);
-           	$this->EnableAction("PumpendrehzahlMaximum_2");
+		$this->RegisterVariableInteger("PumpendrehzahlMaximum", "Pumpendrehzahl Maximum", "~Intensity.100", 400);
+           	$this->EnableAction("PumpendrehzahlMaximum");
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
@@ -239,6 +239,19 @@
 					1049 => array("Status_8", 1),
 					1050 => array("Raumthermostat", 1),
 					1051 => array("Status_9", 1),
+					1054 => array("StatusHeizkreis", 1),
+					1055 => array("Heizkreis", 1),
+					1077 => array("Mischerueberhoehung", 64),
+					1095 => array("Heizkreispumpe", 1),
+					1096 => array("Status_10", 1),
+					1097 => array("HeizkreismischerAuf", 1),
+					1098 => array("Status_11", 1),
+					1099 => array("HeizkreismischerZu", 1),
+					1100 => array("Status_12", 1),
+					1101 => array("DrehzahlHeizkreispumpe", 1),
+					1102 => array("Status_13", 1),
+					1128 => array("PumpendrehzahlMinimum", 1),
+					1129 => array("PumpendrehzahlMaximum", 1),
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
