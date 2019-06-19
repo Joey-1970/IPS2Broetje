@@ -75,22 +75,22 @@
 		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
 		$this->EnableAction("Betriebsart");
 		
-		$this->RegisterVariableFloat("Komfortsollwert", "Komfortsollwert", "~Temperature", 20);
+		$this->RegisterVariableFloat("Komfortsollwert", "Komfort-Sollwert", "~Temperature", 20);
 		$this->EnableAction("Komfortsollwert");
 		
-		$this->RegisterVariableFloat("Reduziertsollwert", "Reduziertsollwert", "~Temperature", 30);
+		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
 		$this->EnableAction("Reduziertsollwert");
 		
-		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutzsollwert", "~Temperature", 40);
+		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutz-Sollwert", "~Temperature", 40);
 		$this->EnableAction("Frostschutzsollwert");
 		
 		$this->RegisterVariableFloat("KennlinieSteilheit", "Kennlinie Steilheit", "", 50);
 		$this->EnableAction("KennlinieSteilheit");
 		
-		$this->RegisterVariableFloat("KennlinieVerschiebung", "KennlinieVerschiebung", "~Temperature", 60);
+		$this->RegisterVariableFloat("KennlinieVerschiebung", "Kennlinien Verschiebung", "~Temperature", 60);
 		$this->EnableAction("KennlinieVerschiebung");
 		
-		$this->RegisterVariableFloat("SommerWinterheizgrenze", "SommerWinterheizgrenze", "~Temperature", 70);
+		$this->RegisterVariableFloat("SommerWinterheizgrenze", "Sommer-/Winterheizgrenze", "~Temperature", 70);
 		$this->EnableAction("SommerWinterheizgrenze");
 		
 		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 80);
@@ -123,13 +123,13 @@
 		$this->RegisterVariableFloat("Raumtemperatur", "Raumtemperatur", "~Temperature", 170);
 		$this->RegisterVariableInteger("Status_5", "Status 5", "", 180);
 		
-		$this->RegisterVariableFloat("Raumsollwert", "Raumsollwert", "~Temperature", 190);
+		$this->RegisterVariableFloat("Raumsollwert", "Raum-Sollwert", "~Temperature", 190);
 		$this->RegisterVariableInteger("Status_6", "Status 6", "", 200);
 		
 		$this->RegisterVariableFloat("Vorlauftemperatur", "Vorlauftemperatur", "~Temperature", 210);
 		$this->RegisterVariableInteger("Status_7", "Status 7", "", 220);
 		
-		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlaufsollwert", "~Temperature", 230);
+		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlauf-Sollwert", "~Temperature", 230);
 		$this->RegisterVariableInteger("Status_8", "Status 8", "", 240);
 		
 		$this->RegisterVariableInteger("Raumthermostat", "Raumthermostat", "IPS2Broetje.RoomThermostat", 250); 
