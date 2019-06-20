@@ -78,7 +78,7 @@
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
 		
-		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
+		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingModeWater", 10);
 		$this->EnableAction("Betriebsart");
 		
 		$this->RegisterVariableFloat("Nennsollwert", "Nenn-Sollwert", "~Temperature", 20);
