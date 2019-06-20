@@ -171,14 +171,15 @@
     					10242 => array("Reduziertsollwert", 64), 
 					10243 => array("Freigabe", 1), 
     					10244 => array("LegionellenFunktion", 1), 
-					10245 => array("KennlinieVerschiebung", 1),
-    					10246 => array("SommerWinterheizgrenze", 1),
-					10247 => array("StatusCommand_1", 1),
-					10249 => array("Tagesheizgrenze", 1),
-					10250 => array("StatusCommand_2", 64),
-					10251 => array("VorlaufsollwertMinimum", 1), 
-					10263 => array("VorlaufsollwertMaximum", 64), 
-					10273 => array("VorlaufsollwertRaumthermostat", 1), 
+					10245 => array("LegionellenFunktionPeriodisch", 1),
+    					10246 => array("LegionellenFunktionWochentag", 1),
+					10247 => array("LegionellenFunktionZeitpunkt", 1),
+					10248 => array("StatusCommand_1", 1),
+					10249 => array("Legionellenfunktionsollwert", 64),
+					10250 => array("LegionellenFunktionVerweildauer", 1), 
+					10251 => array("StatusCommand_2", 1), 
+					10263 => array("Zirkulationssollwert", 64), 
+					10273 => array("StatusTrinkwasser", 1), 
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
