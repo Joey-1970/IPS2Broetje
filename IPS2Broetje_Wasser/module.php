@@ -66,10 +66,14 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 1, "Periodisch", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 2, "Fixer Wochentag", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 0, "Aus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 1, "Periodisch", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 2, "Fixer Wochentag", "Information", -1);
+		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 1, 7, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 1, "Montag", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 2, "Dienstag", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 3, "Mittwoch", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 4, "Donnerstag", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 5, "Freitag", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 6, "Samstag", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 7, "Sonntag", "Information", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
@@ -77,17 +81,20 @@
 		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
 		$this->EnableAction("Betriebsart");
 		
-		$this->RegisterVariableFloat("Komfortsollwert", "Komfort-Sollwert", "~Temperature", 20);
-		$this->EnableAction("Komfortsollwert");
+		$this->RegisterVariableFloat("Nennsollwert", "Nenn-Sollwert", "~Temperature", 20);
+		$this->EnableAction("Nennsollwert");
 		
 		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
 		$this->EnableAction("Reduziertsollwert");
 		
-		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutz-Sollwert", "~Temperature", 40);
-		$this->EnableAction("Frostschutzsollwert");
+		$this->RegisterVariableFloat("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
+		$this->EnableAction("Freigabe");
 		
-		$this->RegisterVariableFloat("KennlinieSteilheit", "Kennlinie Steilheit", "", 50);
-		$this->EnableAction("KennlinieSteilheit");
+		$this->RegisterVariableFloat("LegionellenFunktion", "Legionellen Funktion", "", 50);
+		$this->EnableAction("LegionellenFunktion");
+		
+		
+		
 		
 		$this->RegisterVariableFloat("KennlinieVerschiebung", "Kennlinien Verschiebung", "~Temperature", 60);
 		$this->EnableAction("KennlinieVerschiebung");
