@@ -75,6 +75,8 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 6, "Samstag", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 7, "Sonntag", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2Broetje.Minuten", "Clock", "", " min", 0, 360, 1);
+		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
 		
@@ -108,7 +110,7 @@
 		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
 		$this->EnableAction("Legionellenfunktionsollwert");
 		
-		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "", 110);
+		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "IPS2Broetje.Minuten", 110);
 		$this->EnableAction("LegionellenFunktionVerweildauer");
 		
 		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 120);
