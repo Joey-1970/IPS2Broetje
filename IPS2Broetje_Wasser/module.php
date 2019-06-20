@@ -204,8 +204,9 @@
 							}
 						}
 						else {
-							If (GetValue($this->GetIDForIdent($Name)) <> mktime(0, ($Response/$Devisor))) {
-								SetValue($this->GetIDForIdent($Name), mktime(0, ($Response/$Devisor)));
+							$Minutes = ($Response/$Devisor);
+							If (GetValue($this->GetIDForIdent($Name)) <> mktime(0, $Minutes)) {
+								SetValue($this->GetIDForIdent($Name), mktime(0, $Minutes));
 							}
 						}
 					}
