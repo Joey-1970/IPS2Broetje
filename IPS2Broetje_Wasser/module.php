@@ -101,7 +101,7 @@
 		$this->RegisterVariableInteger("LegionellenFunktionWochentag", "Legionellen Funktion Wochentag", "IPS2Broetje.LegionellaWeekday", 70);
 		$this->EnableAction("LegionellenFunktionWochentag");
 		
-		$this->RegisterVariableInteger("LegionellenFunktionZeitpunkt", "Legionellen Funktion Zeitpunkt", "", 80);
+		$this->RegisterVariableInteger("LegionellenFunktionZeitpunkt", "Legionellen Funktion Zeitpunkt", "~UnixTimestampTime", 80);
 		$this->EnableAction("LegionellenFunktionZeitpunkt");
 		
 		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 90);
@@ -175,7 +175,7 @@
     					10244 => array("LegionellenFunktion", 1), 
 					10245 => array("LegionellenFunktionPeriodisch", 1),
     					10246 => array("LegionellenFunktionWochentag", 1),
-					10247 => array("LegionellenFunktionZeitpunkt", 1),
+					10247 => array("LegionellenFunktionZeitpunkt", 0.1),
 					10248 => array("StatusCommand_1", 1),
 					10249 => array("Legionellenfunktionsollwert", 64),
 					10250 => array("LegionellenFunktionVerweildauer", 1), 
@@ -198,8 +198,15 @@
 					If (count($Result) == 1) {
 						$Response = $Result[1];
 						$this->SendDebug("GetData", $Name.": ".($Response/$Devisor), 0);
-						If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
-							SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
+						If ($Name <> "LegionellenFunktionZeitpunkt") {
+							If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
+								SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
+							}
+						}
+						else {
+							If (GetValue($this->GetIDForIdent($Name)) <> mktime(0, ($Response/$Devisor))) {
+								SetValue($this->GetIDForIdent($Name), mktime(0, ($Response/$Devisor)));
+							}
 						}
 					}
 				}
