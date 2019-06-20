@@ -18,7 +18,6 @@
 		$this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
 	
             	$this->RegisterPropertyBoolean("Open", false);
-		$this->RegisterPropertyInteger("HeatingCircuit", 0);
 		$this->RegisterPropertyInteger("Timer_1", 60);
 		$this->RegisterTimer("Timer_1", 0, 'IPS2BroetjeWasser_GetState($_IPS["TARGET"]);');
 		
@@ -37,14 +36,7 @@
 		
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
- 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		$arrayElements[] = array("type" => "Label", "label" => "Wahl des Heizkreises (1-3)");
-		$arrayOptions = array();
-		$arrayOptions[] = array("label" => "Heizkreis 1", "value" => 0);
-		$arrayOptions[] = array("label" => "Heizkreis 2", "value" => 3072);
-		$arrayOptions[] = array("label" => "Heizkreis 3", "value" => 6144);
-		$arrayElements[] = array("type" => "Select", "name" => "HeatingCircuit", "caption" => "Heizkreis", "options" => $arrayOptions );
-		
+ 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");		
 		$arrayElements[] = array("type" => "Label", "label" => "Auslesezyklus (Sekunden)");
 		$arrayElements[] = array("type" => "IntervalBox", "name" => "Timer_1", "caption" => "s");
 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
@@ -59,15 +51,25 @@
                 parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2Broetje.OperatingMode", "Information", "", "", 0, 3, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 0, "Schutzbetrieb", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 1, "Automatik", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 2, "Reduziert", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 3, "Komfort", "Information", -1);
+		$this->RegisterProfileInteger("IPS2Broetje.OperatingModeWater", "Information", "", "", 0, 2, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 1, "Ein", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 2, "Eco", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.RoomThermostat", "Information", "", "", 0, 3, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 0, "Kein Bedarf", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 1, "Bedarf", "Information", -1);
+		$this->RegisterProfileInteger("IPS2Broetje.Release", "Information", "", "", 0, 2, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 0, "24h/Tagh", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 1, "Zeitprogramme Heizkreise", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 2, "Zeitprogramm 4/TWW", "Information", -1);
+		
+		$this->RegisterProfileInteger("IPS2Broetje.LegionellaFunction", "Information", "", "", 0, 2, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 1, "Periodisch", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 2, "Fixer Wochentag", "Information", -1);
+		
+		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 0, 2, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 0, "Aus", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 1, "Periodisch", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 2, "Fixer Wochentag", "Information", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
