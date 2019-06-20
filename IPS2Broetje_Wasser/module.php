@@ -87,94 +87,38 @@
 		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
 		$this->EnableAction("Reduziertsollwert");
 		
-		$this->RegisterVariableFloat("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
+		$this->RegisterVariableInteger("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
 		$this->EnableAction("Freigabe");
 		
-		$this->RegisterVariableFloat("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
+		$this->RegisterVariableInteger("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
 		$this->EnableAction("LegionellenFunktion");
 		
+		$this->RegisterVariableInteger("LegionellenFunktionPeriodisch", "Legionellen Funktion Periodisch", "", 60);
+		$this->EnableAction("LegionellenFunktionPeriodisch");
 		
+		$this->RegisterVariableInteger("LegionellenFunktionWochentag", "Legionellen Funktion Wochentag", "IPS2Broetje.LegionellaWeekday", 70);
+		$this->EnableAction("LegionellenFunktionWochentag");
 		
+		$this->RegisterVariableInteger("LegionellenFunktionZeitpunkt", "Legionellen Funktion Zeitpunkt", "", 80);
+		$this->EnableAction("LegionellenFunktionZeitpunkt");
 		
-		$this->RegisterVariableFloat("KennlinieVerschiebung", "Kennlinien Verschiebung", "~Temperature", 60);
-		$this->EnableAction("KennlinieVerschiebung");
-		
-		$this->RegisterVariableFloat("SommerWinterheizgrenze", "Sommer-/Winterheizgrenze", "~Temperature", 70);
-		$this->EnableAction("SommerWinterheizgrenze");
-		
-		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 80);
+		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 90);
 		$this->EnableAction("StatusCommand_1");
 		
-		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~Temperature", 90);
-		$this->EnableAction("Tagesheizgrenze");
+		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
+		$this->EnableAction("Legionellenfunktionsollwert");
 		
-		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 100);
+		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "", 110);
+		$this->EnableAction("LegionellenFunktionVerweildauer");
+		
+		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 120);
 		$this->EnableAction("StatusCommand_2");
 		
-		$this->RegisterVariableFloat("VorlaufsollwertMinimum", "Vorlaufsollwert Minimum", "~Temperature", 110);
-		$this->EnableAction("VorlaufsollwertMinimum");
+		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "~Temperature", 130);
+		$this->EnableAction("Zirkulationssollwert");
 		
-		$this->RegisterVariableFloat("VorlaufsollwertMaximum", "Vorlaufsollwert Maximum", "~Temperature", 120);
-		$this->EnableAction("VorlaufsollwertMaximum");
-		
-		$this->RegisterVariableFloat("VorlaufsollwertRaumthermostat", "Vorlaufsollwert Raumthermostat", "~Temperature", 130);
-		$this->EnableAction("VorlaufsollwertRaumthermostat");
-		
-		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 140);
-		$this->EnableAction("StatusCommand_3");
-		
-		$this->RegisterVariableInteger("Raumeinfluss", "Raumeinfluss", "~Intensity.100", 150);
-           	$this->EnableAction("Raumeinfluss");
-		
-		$this->RegisterVariableInteger("StatusCommand_4", "Status/Command 4", "", 160);
-		$this->EnableAction("StatusCommand_4");
-		
-		$this->RegisterVariableFloat("Raumtemperatur", "Raumtemperatur", "~Temperature", 170);
-		$this->RegisterVariableInteger("Status_5", "Status 5", "", 180);
-		
-		$this->RegisterVariableFloat("Raumsollwert", "Raum-Sollwert", "~Temperature", 190);
-		$this->RegisterVariableInteger("Status_6", "Status 6", "", 200);
-		
-		$this->RegisterVariableFloat("Vorlauftemperatur", "Vorlauftemperatur", "~Temperature", 210);
-		$this->RegisterVariableInteger("Status_7", "Status 7", "", 220);
-		
-		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlauf-Sollwert", "~Temperature", 230);
-		$this->RegisterVariableInteger("Status_8", "Status 8", "", 240);
-		
-		$this->RegisterVariableInteger("Raumthermostat", "Raumthermostat", "IPS2Broetje.RoomThermostat", 250); 
-		$this->RegisterVariableInteger("Status_9", "Status 9", "", 260);
-		
-		$this->RegisterVariableInteger("StatusHeizkreis", "Status Heizkreis", "", 270);
-		
-		$this->RegisterVariableBoolean("Heizkreis", "Heizkreis", "~Switch", 280);
-	        $this->EnableAction("Heizkreis");
-		
-		$this->RegisterVariableFloat("Mischerueberhoehung", "Mischerüberhöhung", "~Temperature", 290);
-		$this->EnableAction("Mischerueberhoehung");
-		
-		$this->RegisterVariableInteger("PumpendrehzahlMinimum_1", "Pumpendrehzahl Minimum", "~Intensity.100", 300);
-           	$this->EnableAction("PumpendrehzahlMinimum_1");
-		
-		$this->RegisterVariableInteger("PumpendrehzahlMaximum_1", "Pumpendrehzahl Maximum", "~Intensity.100", 310);
-           	$this->EnableAction("PumpendrehzahlMaximum_1");
-		
-		$this->RegisterVariableBoolean("Heizkreispumpe", "Heizkreispumpe", "~Switch", 320);
-		$this->RegisterVariableInteger("Status_10", "Status 10", "", 330);
-		
-		$this->RegisterVariableBoolean("HeizkreismischerAuf", "Heizkreismischer Auf", "~Switch", 340);
-		$this->RegisterVariableInteger("Status_11", "Status 11", "", 350);
-		
-		$this->RegisterVariableBoolean("HeizkreismischerZu", "Heizkreismischer Zu", "~Switch", 360);
-		$this->RegisterVariableInteger("Status_12", "Status 12", "", 370);
-		
-		$this->RegisterVariableInteger("DrehzahlHeizkreispumpe", "Drehzahl Heizkreispumpe", "~Intensity.100", 380);
-		$this->RegisterVariableInteger("Status_13", "Status 13", "", 390);
-		
-		$this->RegisterVariableInteger("PumpendrehzahlMinimum", "Pumpendrehzahl Minimum", "~Intensity.100", 390);
-           	$this->EnableAction("PumpendrehzahlMinimum");
-		
-		$this->RegisterVariableInteger("PumpendrehzahlMaximum", "Pumpendrehzahl Maximum", "~Intensity.100", 400);
-           	$this->EnableAction("PumpendrehzahlMaximum");
+		$this->RegisterVariableInteger("StatusTrinkwasser", "Status Trinkwasser", "", 140);
+			
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
