@@ -90,7 +90,7 @@
 		$this->RegisterVariableFloat("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
 		$this->EnableAction("Freigabe");
 		
-		$this->RegisterVariableFloat("LegionellenFunktion", "Legionellen Funktion", "", 50);
+		$this->RegisterVariableFloat("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
 		$this->EnableAction("LegionellenFunktion");
 		
 		
