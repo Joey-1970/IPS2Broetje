@@ -1,0 +1,14 @@
+{
+  "id": "{80646663-5D75-8596-0AA6-9A3FD22A1E89}",
+  "name": "IPS2Broetje_Allgemein",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "IPS2Broetje_Allgemein"
+  ],
+  "parentRequirements": ["{E310B701-4AE7-458E-B618-EC13A1A6F6A8}"],
+  "childRequirements": [],
+  "implemented": ["{77B31ABB-18FA-4B91-BB63-E5B2AB5588F4}"],
+  "prefix": "IPS2BroetjeAllgemein"
+}
