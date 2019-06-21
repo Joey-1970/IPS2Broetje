@@ -133,20 +133,16 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					10240 => array("Betriebsart", 1), 
-					10241 => array("Nennsollwert", 64),
-    					10242 => array("Reduziertsollwert", 64), 
-					10243 => array("Freigabe", 1), 
-    					10244 => array("LegionellenFunktion", 1), 
-					10245 => array("LegionellenFunktionPeriodisch", 1),
-    					10246 => array("LegionellenFunktionWochentag", 1),
-					10247 => array("LegionellenFunktionZeitpunkt", 0.1),
-					10248 => array("StatusCommand_1", 1),
-					10249 => array("Legionellenfunktionsollwert", 64),
-					10250 => array("LegionellenFunktionVerweildauer", 1), 
-					10251 => array("StatusCommand_2", 1), 
-					10263 => array("Zirkulationssollwert", 64), 
-					10273 => array("StatusTrinkwasser", 1), 
+					35851 => array("AussenTemperatur", 64), 
+					35852 => array("StatusCommand_1", 1),
+    					35862 => array("ResetAlarmrelais", 1), 
+					35887 => array("StatusAlarmrelais", 1), 
+    					35888 => array("StatusCommand_2", 1), 
+					35901 => array("Schornsteinfegerfunktion", 1),
+    					35903 => array("Brennerleistung", 1),
+					35904 => array("Handbetrieb", 1),
+					35905 => array("Reglerstoppfunktion", 1),
+					35906 => array("ReglerstoppSollwert", 1),
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
@@ -163,16 +159,8 @@
 					If (count($Result) == 1) {
 						$Response = $Result[1];
 						$this->SendDebug("GetData", $Name.": ".($Response/$Devisor), 0);
-						If ($Name <> "LegionellenFunktionZeitpunkt") {
-							If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
-								SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
-							}
-						}
-						else {
-							$Minutes = ($Response/$Devisor);
-							If (GetValue($this->GetIDForIdent($Name)) <> mktime(0, $Minutes, 0)) {
-								SetValue($this->GetIDForIdent($Name), mktime(0, $Minutes, 0));
-							}
+						If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
+							SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
 						}
 					}
 				}
