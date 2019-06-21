@@ -57,6 +57,8 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 2, "Volllast", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 3, "Maximale Heizleistung", "Information", -1);
 		
+		$this->RegisterProfileFloat("IPS2Broetje.WaterPressure", "Information", "", " bar", 0, 6, 0.1, 1);
+		
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
@@ -86,6 +88,10 @@
 		
 		$this->RegisterVariableInteger("ReglerstoppSollwert", "Reglerstopp-Sollwert", "~Intensity.100", 100);
            	$this->EnableAction("ReglerstoppSollwert");	
+		
+		// Wasserdruck
+		$this->RegisterVariableFloat("Wasserdruck", "Wasserdruck", "IPS2Broetje.WaterPressure", 110);
+		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 120);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
@@ -143,6 +149,8 @@
 					35904 => array("Handbetrieb", 1),
 					35905 => array("Reglerstoppfunktion", 1),
 					35906 => array("ReglerstoppSollwert", 1),
+					37981 => array("Wasserdruck", 10),
+					37982 => array("StatusCommand_3", 1),
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
@@ -168,6 +176,24 @@
 		}
 	}
 	
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
+	}
+	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
 	        if (!IPS_VariableProfileExists($Name))
