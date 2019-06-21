@@ -51,76 +51,41 @@
                 parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2Broetje.OperatingModeWater", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 0, "Aus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 1, "Ein", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 2, "Eco", "Information", -1);
+		$this->RegisterProfileInteger("IPS2Broetje.BurnerOutput", "Information", "", "", 0, 3, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 0, "Unbekannt", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 1, "Teillast", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 2, "Volllast", "Information", -1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 3, "Maximale Heizleistung", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.Release", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 0, "24h/Tagh", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 1, "Zeitprogramme Heizkreise", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 2, "Zeitprogramm 4/TWW", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaFunction", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 0, "Aus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 1, "Periodisch", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 2, "Fixer Wochentag", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 1, 7, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 1, "Montag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 2, "Dienstag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 3, "Mittwoch", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 4, "Donnerstag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 5, "Freitag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 6, "Samstag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 7, "Sonntag", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2Broetje.Minuten", "Clock", "", " min", 0, 360, 1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
 		
-		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingModeWater", 10);
-		$this->EnableAction("Betriebsart");
+		$this->RegisterVariableFloat("AussenTemperatur", "Aussentemperatur", "~Temperature", 10);
 		
-		$this->RegisterVariableFloat("Nennsollwert", "Nenn-Sollwert", "~Temperature", 20);
-		$this->EnableAction("Nennsollwert");
+		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 20);
 		
-		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
-		$this->EnableAction("Reduziertsollwert");
+		$this->RegisterVariableBoolean("ResetAlarmrelais", "Reset Alarmrelais", "~Switch", 30);
+		$this->EnableAction("ResetAlarmrelais");
 		
-		$this->RegisterVariableInteger("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
-		$this->EnableAction("Freigabe");
+		$this->RegisterVariableBoolean("StatusAlarmrelais", "Status Alarmrelais", "~Switch", 40);
 		
-		$this->RegisterVariableInteger("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
-		$this->EnableAction("LegionellenFunktion");
+		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 50);
 		
-		$this->RegisterVariableInteger("LegionellenFunktionPeriodisch", "Legionellen Funktion Periodisch", "", 60);
-		$this->EnableAction("LegionellenFunktionPeriodisch");
+		$this->RegisterVariableBoolean("Schornsteinfegerfunktion", "Schornsteinfegerfunktion", "~Switch", 60);
+		$this->EnableAction("Schornsteinfegerfunktion");
 		
-		$this->RegisterVariableInteger("LegionellenFunktionWochentag", "Legionellen Funktion Wochentag", "IPS2Broetje.LegionellaWeekday", 70);
-		$this->EnableAction("LegionellenFunktionWochentag");
+		$this->RegisterVariableInteger("Brennerleistung", "Brennerleistung", "IPS2Broetje.BurnerOutput", 70);
+		$this->EnableAction("Brennerleistung");
 		
-		$this->RegisterVariableInteger("LegionellenFunktionZeitpunkt", "Legionellen Funktion Zeitpunkt", "~UnixTimestampTime", 80);
-		$this->EnableAction("LegionellenFunktionZeitpunkt");
+		$this->RegisterVariableBoolean("Handbetrieb", "Handbetrieb", "~Switch", 80);
+		$this->EnableAction("Handbetrieb");
 		
-		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 90);
-		$this->EnableAction("StatusCommand_1");
+		$this->RegisterVariableBoolean("Reglerstoppfunktion", "Reglerstoppfunktion", "~Switch", 90);
+		$this->EnableAction("Reglerstoppfunktion");
 		
-		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
-		$this->EnableAction("Legionellenfunktionsollwert");
-		
-		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "IPS2Broetje.Minuten", 110);
-		$this->EnableAction("LegionellenFunktionVerweildauer");
-		
-		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 120);
-		$this->EnableAction("StatusCommand_2");
-		
-		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "~Temperature", 130);
-		$this->EnableAction("Zirkulationssollwert");
-		
-		$this->RegisterVariableInteger("StatusTrinkwasser", "Status Trinkwasser", "", 140);
-			
+		$this->RegisterVariableInteger("ReglerstoppSollwert", "Reglerstopp-Sollwert", "~Intensity.100", 100);
+           	$this->EnableAction("ReglerstoppSollwert");	
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
