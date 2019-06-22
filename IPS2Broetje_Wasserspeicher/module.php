@@ -51,30 +51,6 @@
                 parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2Broetje.OperatingModeWater", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 0, "Aus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 1, "Ein", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 2, "Eco", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2Broetje.Release", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 0, "24h/Tagh", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 1, "Zeitprogramme Heizkreise", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 2, "Zeitprogramm 4/TWW", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaFunction", "Information", "", "", 0, 2, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 0, "Aus", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 1, "Periodisch", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 2, "Fixer Wochentag", "Information", -1);
-		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 1, 7, 1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 1, "Montag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 2, "Dienstag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 3, "Mittwoch", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 4, "Donnerstag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 5, "Freitag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 6, "Samstag", "Information", -1);
-		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 7, "Sonntag", "Information", -1);
-		
 		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
@@ -86,17 +62,39 @@
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
 		
-		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingModeWater", 10);
-		$this->EnableAction("Betriebsart");
+		$this->RegisterVariableFloat("Trinkwassertemperatur_1", "Trinkwassertemperatur 1", "~Temperature", 10);
+		$this->RegisterVariableInteger("StatusCommand_1", "Status Sensor Trinkwassertemperatur 1", "IPS2Broetje.Status", 20);
 		
-		$this->RegisterVariableFloat("Nennsollwert", "Nenn-Sollwert", "~Temperature", 20);
-		$this->EnableAction("Nennsollwert");
+		$this->RegisterVariableFloat("Trinkwassertemperatur_2", "Trinkwassertemperatur 2", "~Temperature", 30);
+		$this->RegisterVariableInteger("StatusCommand_2", "Status Sensor Trinkwassertemperatur 2", "IPS2Broetje.Status", 40);
 		
-		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
-		$this->EnableAction("Reduziertsollwert");
+		$this->RegisterVariableInteger("Ladezeitbegrenzung", "Ladezeitbegrenzung", "IPS2Broetje.Minuten", 50);
+		$this->EnableAction("Ladezeitbegrenzung");
+		$this->RegisterVariableInteger("StatusCommand_3", "Status Ladezeitbegrenzung", "IPS2Broetje.Status", 60);
+		$this->EnableAction("StatusCommand_3");
 		
-		$this->RegisterVariableInteger("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
-		$this->EnableAction("Freigabe");
+		$this->RegisterVariableFloat("Vorlaufsollwertueberhoehung", "Vorlaufsollwertüberhöhung", "~Temperature", 70);
+		$this->EnableAction("Vorlaufsollwertueberhoehung");
+		
+		$this->RegisterVariableFloat("Schaltdifferenz", "Schaltdifferenz", "~Temperature", 80);
+		$this->EnableAction("Schaltdifferenz");
+		
+		$this->RegisterVariableFloat("LadetemperaturMaximum", "Ladetemperatur Maximum", "~Temperature", 90);
+		$this->EnableAction("LadetemperaturMaximum");
+		
+		$this->RegisterVariableBoolean("Trinkwasserpumpe", "Trinkwasserpumpe", "~Switch", 100);
+		$this->RegisterVariableInteger("StatusCommand_4", "Status Trinkwasserpumpe", "IPS2Broetje.Status", 110);
+		
+		$this->RegisterVariableInteger("DrehzahlTrinkwasserpumpe", "Drehzahl Trinkwasserpumpe", "~Intensity.100", 120);
+		$this->RegisterVariableInteger("StatusCommand_5", "Status Drehzahl Trinkwasserpumpe", "IPS2Broetje.Status", 130);
+		
+		$this->RegisterVariableInteger("DrehzahlTWW", "Drehzahl TWW", "~Intensity.100", 140);
+		$this->RegisterVariableInteger("StatusCommand_6", "Status Drehzahl TWW", "IPS2Broetje.Status", 150);
+		
+		
+		
+		
+		
 		
 		$this->RegisterVariableInteger("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
 		$this->EnableAction("LegionellenFunktion");
