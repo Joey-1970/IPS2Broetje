@@ -69,6 +69,12 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 0, "Kein Bedarf", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 1, "Bedarf", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 64, "Fehlerhaft", "Alert", 0xFF0000);
+		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
 		
@@ -93,13 +99,13 @@
 		$this->RegisterVariableFloat("SommerWinterheizgrenze", "Sommer-/Winterheizgrenze", "~Temperature", 70);
 		$this->EnableAction("SommerWinterheizgrenze");
 		
-		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 80);
+		$this->RegisterVariableInteger("StatusCommand_1", "Status Sommer-/Winterheizgrenze", "IPS2Broetje.Status", 80);
 		$this->EnableAction("StatusCommand_1");
 		
 		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~Temperature", 90);
 		$this->EnableAction("Tagesheizgrenze");
 		
-		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 100);
+		$this->RegisterVariableInteger("StatusCommand_2", "Status Tagesheizgrenze", "IPS2Broetje.Status", 100);
 		$this->EnableAction("StatusCommand_2");
 		
 		$this->RegisterVariableFloat("VorlaufsollwertMinimum", "Vorlaufsollwert Minimum", "~Temperature", 110);
@@ -111,29 +117,29 @@
 		$this->RegisterVariableFloat("VorlaufsollwertRaumthermostat", "Vorlaufsollwert Raumthermostat", "~Temperature", 130);
 		$this->EnableAction("VorlaufsollwertRaumthermostat");
 		
-		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 140);
+		$this->RegisterVariableInteger("StatusCommand_3", "Status Vorlaufsollwert Raumthermostat", "IPS2Broetje.Status", 140);
 		$this->EnableAction("StatusCommand_3");
 		
 		$this->RegisterVariableInteger("Raumeinfluss", "Raumeinfluss", "~Intensity.100", 150);
            	$this->EnableAction("Raumeinfluss");
 		
-		$this->RegisterVariableInteger("StatusCommand_4", "Status/Command 4", "", 160);
+		$this->RegisterVariableInteger("StatusCommand_4", "Status Sensor Raumeinfluss", "IPS2Broetje.Status", 160);
 		$this->EnableAction("StatusCommand_4");
 		
 		$this->RegisterVariableFloat("Raumtemperatur", "Raumtemperatur", "~Temperature", 170);
-		$this->RegisterVariableInteger("Status_5", "Status 5", "", 180);
+		$this->RegisterVariableInteger("Status_5", "Status Sensor Raumtemperatur", "IPS2Broetje.Status", 180);
 		
 		$this->RegisterVariableFloat("Raumsollwert", "Raum-Sollwert", "~Temperature", 190);
-		$this->RegisterVariableInteger("Status_6", "Status 6", "", 200);
+		$this->RegisterVariableInteger("Status_6", "Status Sensor Raum-Sollwert", "IPS2Broetje.Status", 200);
 		
 		$this->RegisterVariableFloat("Vorlauftemperatur", "Vorlauftemperatur", "~Temperature", 210);
-		$this->RegisterVariableInteger("Status_7", "Status 7", "", 220);
+		$this->RegisterVariableInteger("Status_7", "Status Sensor Vorlauftemperatur", "IPS2Broetje.Status", 220);
 		
 		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlauf-Sollwert", "~Temperature", 230);
-		$this->RegisterVariableInteger("Status_8", "Status 8", "", 240);
+		$this->RegisterVariableInteger("Status_8", "Status Sensor Vorlauf-Sollwert", "IPS2Broetje.Status", 240);
 		
 		$this->RegisterVariableInteger("Raumthermostat", "Raumthermostat", "IPS2Broetje.RoomThermostat", 250); 
-		$this->RegisterVariableInteger("Status_9", "Status 9", "", 260);
+		$this->RegisterVariableInteger("Status_9", "Status Raumthermostat", "IPS2Broetje.Status", 260);
 		
 		$this->RegisterVariableInteger("StatusHeizkreis", "Status Heizkreis", "", 270);
 		
@@ -150,16 +156,16 @@
            	$this->EnableAction("PumpendrehzahlMaximum_1");
 		
 		$this->RegisterVariableBoolean("Heizkreispumpe", "Heizkreispumpe", "~Switch", 320);
-		$this->RegisterVariableInteger("Status_10", "Status 10", "", 330);
+		$this->RegisterVariableInteger("Status_10", "Status Heizkreispumpe", "IPS2Broetje.Status", 330);
 		
 		$this->RegisterVariableBoolean("HeizkreismischerAuf", "Heizkreismischer Auf", "~Switch", 340);
-		$this->RegisterVariableInteger("Status_11", "Status 11", "", 350);
+		$this->RegisterVariableInteger("Status_11", "Status Heizkreismischer Auf", "IPS2Broetje.Status", 350);
 		
 		$this->RegisterVariableBoolean("HeizkreismischerZu", "Heizkreismischer Zu", "~Switch", 360);
-		$this->RegisterVariableInteger("Status_12", "Status 12", "", 370);
+		$this->RegisterVariableInteger("Status_12", "Status Heizkreismischer Zu", "IPS2Broetje.Status", 370);
 		
 		$this->RegisterVariableInteger("DrehzahlHeizkreispumpe", "Drehzahl Heizkreispumpe", "~Intensity.100", 380);
-		$this->RegisterVariableInteger("Status_13", "Status 13", "", 390);
+		$this->RegisterVariableInteger("Status_13", "Status Drehzahlsensor", "IPS2Broetje.Status", 390);
 		
 		$this->RegisterVariableInteger("PumpendrehzahlMinimum", "Pumpendrehzahl Minimum", "~Intensity.100", 390);
            	$this->EnableAction("PumpendrehzahlMinimum");
