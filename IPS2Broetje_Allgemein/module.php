@@ -57,6 +57,12 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 2, "Volllast", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 3, "Maximale Heizleistung", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 64, "Fehlerhaft", "Alert", 0xFF0000);
+		
 		$this->RegisterProfileFloat("IPS2Broetje.WaterPressure", "Information", "", " bar", 0, 6, 0.1, 1);
 		
 		
@@ -65,14 +71,14 @@
 		
 		$this->RegisterVariableFloat("AussenTemperatur", "Aussentemperatur", "~Temperature", 10);
 		
-		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 20);
+		$this->RegisterVariableInteger("StatusCommand_1", "Status Aussentemperatursensor", "IPS2Broetje.Status", 20);
 		
 		$this->RegisterVariableBoolean("ResetAlarmrelais", "Reset Alarmrelais", "~Switch", 30);
 		$this->EnableAction("ResetAlarmrelais");
 		
 		$this->RegisterVariableBoolean("StatusAlarmrelais", "Status Alarmrelais", "~Switch", 40);
 		
-		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 50);
+		$this->RegisterVariableInteger("StatusCommand_2", "Status Alarmrelais", "IPS2Broetje.Status", 50);
 		
 		$this->RegisterVariableBoolean("Schornsteinfegerfunktion", "Schornsteinfegerfunktion", "~Switch", 60);
 		$this->EnableAction("Schornsteinfegerfunktion");
