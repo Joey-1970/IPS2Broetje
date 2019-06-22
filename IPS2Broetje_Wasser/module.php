@@ -75,6 +75,12 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 6, "Samstag", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 7, "Sonntag", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 1);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
+		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 64, "Fehlerhaft", "Alert", 0xFF0000);
+		
 		$this->RegisterProfileInteger("IPS2Broetje.Minuten", "Clock", "", " min", 0, 360, 1);
 		
 		// Status-Variablen anlegen
@@ -104,7 +110,7 @@
 		$this->RegisterVariableInteger("LegionellenFunktionZeitpunkt", "Legionellen Funktion Zeitpunkt", "~UnixTimestampTime", 80);
 		$this->EnableAction("LegionellenFunktionZeitpunkt");
 		
-		$this->RegisterVariableInteger("StatusCommand_1", "Status/Command 1", "", 90);
+		$this->RegisterVariableInteger("StatusCommand_1", "Status Legionellenfunktion Zeitpunkt", "IPS2Broetje.Status", 90);
 		$this->EnableAction("StatusCommand_1");
 		
 		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
@@ -113,7 +119,7 @@
 		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "IPS2Broetje.Minuten", 110);
 		$this->EnableAction("LegionellenFunktionVerweildauer");
 		
-		$this->RegisterVariableInteger("StatusCommand_2", "Status/Command 2", "", 120);
+		$this->RegisterVariableInteger("StatusCommand_2", "Status Legionellenfunktion Verweildauer", "IPS2Broetje.Status", 120);
 		$this->EnableAction("StatusCommand_2");
 		
 		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "~Temperature", 130);
