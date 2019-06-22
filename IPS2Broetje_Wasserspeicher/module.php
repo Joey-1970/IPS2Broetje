@@ -179,9 +179,8 @@
 					11395 => array("ZustandZirkulationspumpe", 1),
 					11396 => array("StatusCommand_10", 1),
 					11411 => array("TWWZwischenkreispumpe", 1), 
-					11411 => array("StatusCommand_11", 1), 
-					11412 => array("Zirkulationssollwert", 64), 
-					11419 => array("StatusTrinkwasser", 1),
+					11412 => array("StatusCommand_11", 1), 
+					11419 => array("BAUmschaltungTWW", 1),
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
@@ -191,23 +190,15 @@
 				$Address = $Key;
 				$Quantity = 1;
 				$Name = $Values[0];
-				$Devisor = floatval($Values[1]);
+				$Devisor = intval($Values[1]);
 				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
 						$Response = $Result[1];
 						$this->SendDebug("GetData", $Name.": ".($Response/$Devisor), 0);
-						If ($Name <> "LegionellenFunktionZeitpunkt") {
-							If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
-								SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
-							}
-						}
-						else {
-							$Minutes = ($Response/$Devisor);
-							If (GetValue($this->GetIDForIdent($Name)) <> mktime(0, $Minutes, 0)) {
-								SetValue($this->GetIDForIdent($Name), mktime(0, $Minutes, 0));
-							}
+						If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
+							SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
 						}
 					}
 				}
