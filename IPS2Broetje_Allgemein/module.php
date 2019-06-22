@@ -93,6 +93,9 @@
 		$this->RegisterVariableFloat("Wasserdruck", "Wasserdruck", "IPS2Broetje.WaterPressure", 110);
 		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 120);
 		
+		// Uhrzeit und Datum
+		$this->RegisterVariableInteger("Systemzeit", "SYstemzeit", "~UnixTimestamp", 130);
+		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
 			$this->SetStatus(102);
@@ -173,9 +176,36 @@
 					}
 				}
 			}
+			$this->GetSystemDate();
 		}
 	}
 	
+	public function GetSystemDate()
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$Response = false;
+			$Systemdate = array();
+			for ($Address = 39920; $Address <= 39926; $Address++) {
+    				$Function = 3;
+				$Quantity = 1;
+				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
+				$Result = (unpack("n*", substr($Result,2)));
+				If (is_array($Result)) {
+					If (count($Result) == 1) {
+						$Response = $Result[1];
+						$this->SendDebug("GetSystemDate", $Address.": ".$Response, 0);
+						$Systemdate[$Address] = $Response;
+					}
+				}	
+			}
+			$Result = mktime($Systemdate[39923], $Systemdate[39924], $Systemdate[39925], $Systemdate[39921], $Systemdate[39922], ($Systemdate[39920] + 1900));
+			If (GetValue($this->GetIDForIdent("Systemzeit")) <> $Result) {
+				SetValueInteger($this->GetIDForIdent("Systemzeit"), $Result);
+			}
+		}
+	}  
+	    
+	    
 	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
 	        if (!IPS_VariableProfileExists($Name))
