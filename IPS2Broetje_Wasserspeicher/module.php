@@ -91,40 +91,23 @@
 		$this->RegisterVariableInteger("DrehzahlTWW", "Drehzahl TWW", "~Intensity.100", 140);
 		$this->RegisterVariableInteger("StatusCommand_6", "Status Drehzahl TWW", "IPS2Broetje.Status", 150);
 		
+		$this->RegisterVariableFloat("Trinkwassersollwert", "Trinkwasser-Sollwert", "~Temperature", 160);
+		$this->RegisterVariableInteger("StatusCommand_7", "Status Trinkwasser-Sollwert", "IPS2Broetje.Status", 170);
 		
+		$this->RegisterVariableFloat("TWWZirkulationstemperatur", "TWW Zirkulationstemperatur", "~Temperature", 180);
+		$this->RegisterVariableInteger("StatusCommand_8", "Status TWW Zirkulationstemperatur", "IPS2Broetje.Status", 190);
 		
+		$this->RegisterVariableFloat("TWWLadetemperatur", "TWW Ladetemperatur", "~Temperature", 200);
+		$this->RegisterVariableInteger("StatusCommand_9", "Status TWW Ladetemperatur", "IPS2Broetje.Status", 210);
 		
+		$this->RegisterVariableBoolean("ZustandZirkulationspumpe", "Zustand Zirkulationspumpe", "~Switch", 220);
+		$this->RegisterVariableInteger("StatusCommand_10", "Status Zirkulationspumpe", "IPS2Broetje.Status", 230);
 		
+		$this->RegisterVariableBoolean("TWWZwischenkreispumpe", "Zustand TWW Zwischenkreispumpe", "~Switch", 240);
+		$this->RegisterVariableInteger("StatusCommand_11", "Status TWW Zwischenkreispumpe", "IPS2Broetje.Status", 250);
 		
-		$this->RegisterVariableInteger("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
-		$this->EnableAction("LegionellenFunktion");
+		$this->RegisterVariableBoolean("BAUmschaltungTWW", "BAUmschaltungTWW", "~Switch", 260);
 		
-		$this->RegisterVariableInteger("LegionellenFunktionPeriodisch", "Legionellen Funktion Periodisch", "", 60);
-		$this->EnableAction("LegionellenFunktionPeriodisch");
-		
-		$this->RegisterVariableInteger("LegionellenFunktionWochentag", "Legionellen Funktion Wochentag", "IPS2Broetje.LegionellaWeekday", 70);
-		$this->EnableAction("LegionellenFunktionWochentag");
-		
-		$this->RegisterVariableInteger("LegionellenFunktionZeitpunkt", "Legionellen Funktion Zeitpunkt", "~UnixTimestampTime", 80);
-		$this->EnableAction("LegionellenFunktionZeitpunkt");
-		
-		$this->RegisterVariableInteger("StatusCommand_1", "Status Legionellenfunktion Zeitpunkt", "IPS2Broetje.Status", 90);
-		$this->EnableAction("StatusCommand_1");
-		
-		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
-		$this->EnableAction("Legionellenfunktionsollwert");
-		
-		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "IPS2Broetje.Minuten", 110);
-		$this->EnableAction("LegionellenFunktionVerweildauer");
-		
-		$this->RegisterVariableInteger("StatusCommand_2", "Status Legionellenfunktion Verweildauer", "IPS2Broetje.Status", 120);
-		$this->EnableAction("StatusCommand_2");
-		
-		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "~Temperature", 130);
-		$this->EnableAction("Zirkulationssollwert");
-		
-		$this->RegisterVariableInteger("StatusTrinkwasser", "Status Trinkwasser", "", 140);
-			
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
