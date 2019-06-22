@@ -94,7 +94,7 @@
 		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 120);
 		
 		// Uhrzeit und Datum
-		$this->RegisterVariableInteger("Systemzeit", "SYstemzeit", "~UnixTimestamp", 130);
+		$this->RegisterVariableInteger("Systemzeit", "Systemzeit", "~UnixTimestamp", 130);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$this->GetState();
