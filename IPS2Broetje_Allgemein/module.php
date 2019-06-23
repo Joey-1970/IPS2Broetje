@@ -97,7 +97,7 @@
 		
 		// Wasserdruck
 		$this->RegisterVariableFloat("Wasserdruck", "Wasserdruck", "IPS2Broetje.WaterPressure", 110);
-		$this->RegisterVariableInteger("StatusCommand_3", "Status/Command 3", "", 120);
+		$this->RegisterVariableInteger("StatusCommand_3", "Status Wasserdrucksensor", "IPS2Broetje.Status", 120);
 		
 		// Uhrzeit und Datum
 		$this->RegisterVariableInteger("Systemzeit", "Systemzeit", "~UnixTimestamp", 130);
