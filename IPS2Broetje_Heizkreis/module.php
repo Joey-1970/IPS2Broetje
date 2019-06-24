@@ -289,7 +289,7 @@
 			$Function = 6;
 			$Quantity = 1;
 			$Payload = $this->unichr($Payload);
-			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($Payload) )));
+			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($Payload) ), JSON_UNESCAPED_UNICODE ));
 
 		}
 	}
