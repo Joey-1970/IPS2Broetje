@@ -290,7 +290,7 @@
 			$Quantity = 1;
 			$Payload_1 = $Payload & 255; // LSB
 			$Payload_2 = $Payload >> 8; // MSB
-			$SendPayload = chr($Payload_2).chr($Payload_2);
+			$SendPayload = chr($Payload_2).chr($Payload_1);
 			//$Payload = $this->unichr($Payload);
 			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($SendPayload) ), JSON_UNESCAPED_UNICODE ));
 
