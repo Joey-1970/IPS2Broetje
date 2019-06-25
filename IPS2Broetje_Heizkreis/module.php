@@ -288,48 +288,12 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			$Function = 6;
 			$Quantity = 1;
-			$Payload_1 = $Payload & 255; // LSB
-			$Payload_2 = $Payload >> 8; // MSB
-			$SendPayload = chr($Payload_2).chr($Payload_1);
-			//$Payload = $this->unichr($Payload);
+			$SendPayload = chr($Payload >> 8).chr($Payload & 255);
 			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($SendPayload) ), JSON_UNESCAPED_UNICODE ));
 
 		}
 	}
-	
-	private function unichr($dec)
-	{
-		  if ($dec < 0x80)
-		  {
-			$utf = chr($dec);
-		  }
-		  else if ($dec < 0x0800)
-		  {
-			$utf = chr(0xC0 + ($dec >> 6));
-			$utf .= chr(0x80 + ($dec & 0x3f));
-		  }
-		  else if ($dec < 0x010000)
-		  {
-			$utf = chr(0xE0 + ($dec >> 12));
-			$utf .= chr(0x80 + (($dec >> 6) & 0x3f));
-			$utf .= chr(0x80 + ($dec & 0x3f));
-		  }
-		  else if ($dec < 0x200000)
-		  {
-			$utf = chr(0xF0 + ($dec >> 18));
-			$utf .= chr(0x80 + (($dec >> 12) & 0x3f));
-			$utf .= chr(0x80 + (($dec >> 6) & 0x3f));
-			$utf .= chr(0x80 + ($dec & 0x3f));
-		  }
-		  else
-		  {
-			die("UTF-8 character size is more than 4 bytes");
-		  }
-
-	return $utf;
-	}    
-	    
-	    
+	        
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
 	        if (!IPS_VariableProfileExists($Name))
