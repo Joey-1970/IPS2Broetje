@@ -187,36 +187,37 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-  		switch($Ident) {
-	        case "Betriebsart":
-			If ($this->ReadPropertyBoolean("Open") == true) {
+  		If ($this->ReadPropertyBoolean("Open") == true) {
+			switch($Ident) {
+			case "Betriebsart":
 				SetData(1024, $Value);
-			}
-	            break;
-		case "Komfortsollwert":
-			If ($this->ReadPropertyBoolean("Open") == true) {
+			    break;
+			case "Komfortsollwert":
 				SetData(1025, ($Value * 64));
-			}
-	            break;
-		case "Reduziertsollwert":
-			If ($this->ReadPropertyBoolean("Open") == true) {
+			    break;
+			case "Reduziertsollwert":
 				SetData(1026, ($Value * 64));
-			}
-	            break;
-		case "Frostschutzsollwert":
-			If ($this->ReadPropertyBoolean("Open") == true) {
+			    break;
+			case "Frostschutzsollwert":
 				SetData(1027, ($Value * 64));
+			    break;
+			case "KennlinieSteilheit":
+				SetData(1028, ($Value * 50));
+			    break;
+			case "KennlinieVerschiebung":
+				SetData(1029, ($Value * 64));
+			    break;
+			case "SommerWinterheizgrenze":
+				SetData(1030, ($Value * 64));
+			    break;
+			case "Tagesheizgrenze":
+				SetData(1032, ($Value * 64));
+			    break;
+			default:
+			    throw new Exception("Invalid Ident");
 			}
-	            break;
-		case "KennlinieSteilheit":
-			If ($this->ReadPropertyBoolean("Open") == true) {
-				SetData(1027, ($Value * 50));
-			}
-	            break;
-	        default:
-	            throw new Exception("Invalid Ident");
-	    	}
-		$this->GetData();
+			$this->GetData();
+		}
 	}
 	    
 	public function ReceiveData($JSONString) 
