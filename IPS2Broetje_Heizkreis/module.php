@@ -188,14 +188,35 @@
 	public function RequestAction($Ident, $Value) 
 	{
   		switch($Ident) {
-	        case "State":
-			If ($Value <> GetValueBoolean($this->GetIDForIdent("State"))) {
-				$this->KeyPress();
+	        case "Betriebsart":
+			If ($this->ReadPropertyBoolean("Open") == true) {
+				SetData(1024, $Value);
+			}
+	            break;
+		case "Komfortsollwert":
+			If ($this->ReadPropertyBoolean("Open") == true) {
+				SetData(1025, ($Value * 64));
+			}
+	            break;
+		case "Reduziertsollwert":
+			If ($this->ReadPropertyBoolean("Open") == true) {
+				SetData(1026, ($Value * 64));
+			}
+	            break;
+		case "Frostschutzsollwert":
+			If ($this->ReadPropertyBoolean("Open") == true) {
+				SetData(1027, ($Value * 64));
+			}
+	            break;
+		case "KennlinieSteilheit":
+			If ($this->ReadPropertyBoolean("Open") == true) {
+				SetData(1027, ($Value * 50));
 			}
 	            break;
 	        default:
 	            throw new Exception("Invalid Ident");
 	    	}
+		$this->GetData();
 	}
 	    
 	public function ReceiveData($JSONString) 
