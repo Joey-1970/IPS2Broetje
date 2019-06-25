@@ -75,19 +75,21 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 64, "Fehlerhaft", "Alert", 0xFF0000);
 		
+		$this->RegisterProfileFloat("IPS2Broetje.TemperatureSetpoint", "Information", "", " °C", 4, 35, 0.1, 1);
+		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
 		
 		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingMode", 10);
 		$this->EnableAction("Betriebsart");
 		
-		$this->RegisterVariableFloat("Komfortsollwert", "Komfort-Sollwert", "~Temperature", 20);
+		$this->RegisterVariableFloat("Komfortsollwert", "Komfort-Sollwert", "IPS2Broetje.TemperatureSetpoint", 20);
 		$this->EnableAction("Komfortsollwert");
 		
-		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
+		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "IPS2Broetje.TemperatureSetpoint", 30);
 		$this->EnableAction("Reduziertsollwert");
 		
-		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutz-Sollwert", "~Temperature", 40);
+		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutz-Sollwert", "IPS2Broetje.TemperatureSetpoint", 40);
 		$this->EnableAction("Frostschutzsollwert");
 		
 		$this->RegisterVariableFloat("KennlinieSteilheit", "Kennlinie Steilheit", "", 50);
@@ -193,13 +195,13 @@
 				$this->SetData(1024, $Value);
 			    break;
 			case "Komfortsollwert":
-				$this->SetData(1025, ($Value * 64));
+				$this->SetData(1025, intval($Value * 64));
 			    break;
 			case "Reduziertsollwert":
-				$this->SetData(1026, ($Value * 64));
+				$this->SetData(1026, intval($Value * 64));
 			    break;
 			case "Frostschutzsollwert":
-				$this->SetData(1027, ($Value * 64));
+				$this->SetData(1027, intval($Value * 64));
 			    break;
 			case "KennlinieSteilheit":
 				$this->SetData(1028, ($Value * 50));
@@ -315,7 +317,25 @@
 
 		}
 	}
-	        
+	
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
+	}    
+	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
 	        if (!IPS_VariableProfileExists($Name))
