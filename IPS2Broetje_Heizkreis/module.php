@@ -59,17 +59,17 @@
                 parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2Broetje.OperatingMode", "Information", "", "", 0, 3, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.OperatingMode", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 0, "Schutzbetrieb", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 1, "Automatik", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 2, "Reduziert", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingMode", 3, "Komfort", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.RoomThermostat", "Information", "", "", 0, 3, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.RoomThermostat", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 0, "Kein Bedarf", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.RoomThermostat", 1, "Bedarf", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
