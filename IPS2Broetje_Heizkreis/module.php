@@ -243,45 +243,45 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					1024 => array("Betriebsart", 1), 
-					1025 => array("Komfortsollwert", 64),
-    					1026 => array("Reduziertsollwert", 64), 
-					1027 => array("Frostschutzsollwert", 64), 
-    					1028 => array("KennlinieSteilheit", 50), 
-					1029 => array("KennlinieVerschiebung", 64),
-    					1030 => array("SommerWinterheizgrenze", 64),
-					1031 => array("StatusCommand_1", 1),
-					1032 => array("Tagesheizgrenze", 64),
-					1033 => array("StatusCommand_2", 1),
-					1034 => array("VorlaufsollwertMinimum", 64), 
-					1035 => array("VorlaufsollwertMaximum", 64), 
-					1036 => array("VorlaufsollwertRaumthermostat", 64), 
-					1037 => array("StatusCommand_3", 1),
-					1038 => array("Raumeinfluss", 1), 
-					1039 => array("StatusCommand_4", 1),
-					1042 => array("Raumtemperatur", 64),
-					1043 => array("Status_5", 1),
-					1044 => array("Raumsollwert", 64),
-					1045 => array("Status_6", 1),
-					1046 => array("Vorlauftemperatur", 64),
-					1047 => array("Status_7", 1),
-					1048 => array("Vorlaufsollwert", 64),
-					1049 => array("Status_8", 1),
-					1050 => array("Raumthermostat", 1),
-					1051 => array("Status_9", 1),
-					1054 => array("StatusHeizkreis", 1),
-					1055 => array("Heizkreis", 1),
-					1077 => array("Mischerueberhoehung", 64),
-					1095 => array("Heizkreispumpe", 1),
-					1096 => array("Status_10", 1),
-					1097 => array("HeizkreismischerAuf", 1),
-					1098 => array("Status_11", 1),
-					1099 => array("HeizkreismischerZu", 1),
-					1100 => array("Status_12", 1),
-					1101 => array("DrehzahlHeizkreispumpe", 1),
-					1102 => array("Status_13", 1),
-					1128 => array("PumpendrehzahlMinimum", 1),
-					1129 => array("PumpendrehzahlMaximum", 1),
+					1024 => array("Betriebsart", 1, 0), 
+					1025 => array("Komfortsollwert", 64, 0),
+    					1026 => array("Reduziertsollwert", 64, 0), 
+					1027 => array("Frostschutzsollwert", 64, 0), 
+    					1028 => array("KennlinieSteilheit", 50, 0), 
+					1029 => array("KennlinieVerschiebung", 64, 1),
+    					1030 => array("SommerWinterheizgrenze", 64, 0),
+					1031 => array("StatusCommand_1", 1, 0),
+					1032 => array("Tagesheizgrenze", 64, 1),
+					1033 => array("StatusCommand_2", 1, 0),
+					1034 => array("VorlaufsollwertMinimum", 64, 0), 
+					1035 => array("VorlaufsollwertMaximum", 64, 0), 
+					1036 => array("VorlaufsollwertRaumthermostat", 64, 0), 
+					1037 => array("StatusCommand_3", 1, 0),
+					1038 => array("Raumeinfluss", 1, 0), 
+					1039 => array("StatusCommand_4", 1, 0),
+					1042 => array("Raumtemperatur", 64, 0),
+					1043 => array("Status_5", 1, 0),
+					1044 => array("Raumsollwert", 64, 0),
+					1045 => array("Status_6", 1, 0),
+					1046 => array("Vorlauftemperatur", 64, 0),
+					1047 => array("Status_7", 1, 0),
+					1048 => array("Vorlaufsollwert", 64, 0),
+					1049 => array("Status_8", 1, 0),
+					1050 => array("Raumthermostat", 1, 0),
+					1051 => array("Status_9", 1, 0),
+					1054 => array("StatusHeizkreis", 1, 0),
+					1055 => array("Heizkreis", 1, 0),
+					1077 => array("Mischerueberhoehung", 64, 0),
+					1095 => array("Heizkreispumpe", 1, 0),
+					1096 => array("Status_10", 1, 0),
+					1097 => array("HeizkreismischerAuf", 1, 0),
+					1098 => array("Status_11", 1, 0),
+					1099 => array("HeizkreismischerZu", 1, 0),
+					1100 => array("Status_12", 1, 0),
+					1101 => array("DrehzahlHeizkreispumpe", 1, 0),
+					1102 => array("Status_13", 1, 0),
+					1128 => array("PumpendrehzahlMinimum", 1, 0),
+					1129 => array("PumpendrehzahlMaximum", 1, 0),
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
@@ -292,15 +292,23 @@
 				$Quantity = 1;
 				$Name = $Values[0];
 				$Devisor = intval($Values[1]);
+				$Signed = intval($Values[2]);
 				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
 						$Response = $Result[1];
-						$this->SendDebug("GetData", $Name.": ".($Response/$Devisor), 0);
-						If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
-							SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
+						
+						If ($Signed == 0) {
+							$Value = ($Response/$Devisor);
 						}
+						else {
+							$Value = $this->bin16dec($Response/$Devisor);
+						}
+						$this->SendDebug("GetData", $Name.": ".$Value, 0);
+						If (GetValue($this->GetIDForIdent($Name)) <> $Value) {
+							SetValue($this->GetIDForIdent($Name), $Value);
+						}					
 					}
 				}
 			}
@@ -318,6 +326,17 @@
 		}
 	}
 	
+	private function bin16dec($dec) 
+	{
+	    	// converts 16bit binary number string to integer using two's complement
+	    	$BinString = decbin($dec);
+		$DecNumber = bindec($BinString) & 0xFFFF; // only use bottom 16 bits
+	    	If (0x8000 & $DecNumber) {
+			$DecNumber = - (0x010000 - $DecNumber);
+	    	}
+	return $DecNumber;
+	}      
+	    
 	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
 	        if (!IPS_VariableProfileExists($Name))
