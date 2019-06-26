@@ -227,6 +227,30 @@
 			case "Tagesheizgrenze":
 				$this->SetData(1032, ($Value * 64));
 			    break;
+			case "VorlaufsollwertMinimum":
+				$this->SetData(1034, ($Value * 64));
+			    break;
+			case "VorlaufsollwertMaximum":
+				$this->SetData(1035, ($Value * 64));
+			    break;
+			case "VorlaufsollwertRaumthermostat":
+				$this->SetData(1036, ($Value * 64));
+			    break;
+			case "Raumeinfluss":
+				$this->SetData(1038, $Value);
+			    break;
+			case "Heizkreis":
+				$this->SetData(1055, $Value);
+			    break;
+			case "Mischerueberhoehung":
+				$this->SetData(1077, ($Value * 64));
+			    break;
+			case "PumpendrehzahlMinimum":
+				$this->SetData(1128, $Value);
+			    break;
+			case "PumpendrehzahlMaximum":
+				$this->SetData(1129, $Value);
+			    break;
 			default:
 			    throw new Exception("Invalid Ident");
 			}
