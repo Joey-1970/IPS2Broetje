@@ -75,7 +75,19 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 64, "Fehlerhaft", "Alert", 0xFF0000);
 		
-		$this->RegisterProfileFloat("IPS2Broetje.TemperatureSetpoint", "Information", "", " °C", 4, 35, 0.1, 1);
+		$this->RegisterProfileFloat("IPS2Broetje.TemperatureSetpoint", "Temperature", "", " °C", 4, 35, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.SummerWinter", "Temperature", "", " °C", 8, 30, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.CharacteristicCurveShift", "Temperature", "", " °C", -4.5, 4.5, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.HeatingLimit", "Temperature", "", " °C", -10, 10, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.Preheat", "Temperature", "", " °C", 8, 95, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.RoomTemperature", "Temperature", "", " °C", 0, 50, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.PreheatTemperature", "Temperature", "", " °C", 0, 140, 0.1, 1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
@@ -95,28 +107,28 @@
 		$this->RegisterVariableFloat("KennlinieSteilheit", "Kennlinie Steilheit", "", 50);
 		$this->EnableAction("KennlinieSteilheit");
 		
-		$this->RegisterVariableFloat("KennlinieVerschiebung", "Kennlinien Verschiebung", "~Temperature", 60);
+		$this->RegisterVariableFloat("KennlinieVerschiebung", "Kennlinien Verschiebung", "IPS2Broetje.CharacteristicCurveShift", 60);
 		$this->EnableAction("KennlinieVerschiebung");
 		
-		$this->RegisterVariableFloat("SommerWinterheizgrenze", "Sommer-/Winterheizgrenze", "~Temperature", 70);
+		$this->RegisterVariableFloat("SommerWinterheizgrenze", "Sommer-/Winterheizgrenze", "IPS2Broetje.SummerWinter", 70);
 		$this->EnableAction("SommerWinterheizgrenze");
 		
 		$this->RegisterVariableInteger("StatusCommand_1", "Status Sommer-/Winterheizgrenze", "IPS2Broetje.Status", 80);
 		$this->EnableAction("StatusCommand_1");
 		
-		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~Temperature", 90);
+		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~IPS2Broetje.HeatingLimit", 90);
 		$this->EnableAction("Tagesheizgrenze");
 		
 		$this->RegisterVariableInteger("StatusCommand_2", "Status Tagesheizgrenze", "IPS2Broetje.Status", 100);
 		$this->EnableAction("StatusCommand_2");
 		
-		$this->RegisterVariableFloat("VorlaufsollwertMinimum", "Vorlaufsollwert Minimum", "~Temperature", 110);
+		$this->RegisterVariableFloat("VorlaufsollwertMinimum", "Vorlaufsollwert Minimum", "IPS2Broetje.Preheat", 110);
 		$this->EnableAction("VorlaufsollwertMinimum");
 		
-		$this->RegisterVariableFloat("VorlaufsollwertMaximum", "Vorlaufsollwert Maximum", "~Temperature", 120);
+		$this->RegisterVariableFloat("VorlaufsollwertMaximum", "Vorlaufsollwert Maximum", "IPS2Broetje.Preheat", 120);
 		$this->EnableAction("VorlaufsollwertMaximum");
 		
-		$this->RegisterVariableFloat("VorlaufsollwertRaumthermostat", "Vorlaufsollwert Raumthermostat", "~Temperature", 130);
+		$this->RegisterVariableFloat("VorlaufsollwertRaumthermostat", "Vorlaufsollwert Raumthermostat", "IPS2Broetje.Preheat", 130);
 		$this->EnableAction("VorlaufsollwertRaumthermostat");
 		
 		$this->RegisterVariableInteger("StatusCommand_3", "Status Vorlaufsollwert Raumthermostat", "IPS2Broetje.Status", 140);
@@ -128,16 +140,16 @@
 		$this->RegisterVariableInteger("StatusCommand_4", "Status Sensor Raumeinfluss", "IPS2Broetje.Status", 160);
 		$this->EnableAction("StatusCommand_4");
 		
-		$this->RegisterVariableFloat("Raumtemperatur", "Raumtemperatur", "~Temperature", 170);
+		$this->RegisterVariableFloat("Raumtemperatur", "Raumtemperatur", "IPS2Broetje.RoomTemperature", 170);
 		$this->RegisterVariableInteger("Status_5", "Status Sensor Raumtemperatur", "IPS2Broetje.Status", 180);
 		
-		$this->RegisterVariableFloat("Raumsollwert", "Raum-Sollwert", "~Temperature", 190);
+		$this->RegisterVariableFloat("Raumsollwert", "Raum-Sollwert", "IPS2Broetje.TemperatureSetpoint", 190);
 		$this->RegisterVariableInteger("Status_6", "Status Sensor Raum-Sollwert", "IPS2Broetje.Status", 200);
 		
-		$this->RegisterVariableFloat("Vorlauftemperatur", "Vorlauftemperatur", "~Temperature", 210);
+		$this->RegisterVariableFloat("Vorlauftemperatur", "Vorlauftemperatur", "IPS2Broetje.PreheatTemperature", 210);
 		$this->RegisterVariableInteger("Status_7", "Status Sensor Vorlauftemperatur", "IPS2Broetje.Status", 220);
 		
-		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlauf-Sollwert", "~Temperature", 230);
+		$this->RegisterVariableFloat("Vorlaufsollwert", "Vorlauf-Sollwert", "IPS2Broetje.PreheatTemperature", 230);
 		$this->RegisterVariableInteger("Status_8", "Status Sensor Vorlauf-Sollwert", "IPS2Broetje.Status", 240);
 		
 		$this->RegisterVariableInteger("Raumthermostat", "Raumthermostat", "IPS2Broetje.RoomThermostat", 250); 
@@ -148,7 +160,7 @@
 		$this->RegisterVariableBoolean("Heizkreis", "Heizkreis", "~Switch", 280);
 	        $this->EnableAction("Heizkreis");
 		
-		$this->RegisterVariableFloat("Mischerueberhoehung", "Mischerüberhöhung", "~Temperature", 290);
+		$this->RegisterVariableFloat("Mischerueberhoehung", "Mischerüberhöhung", "IPS2Broetje.RoomTemperature", 290);
 		$this->EnableAction("Mischerueberhoehung");
 		
 		$this->RegisterVariableInteger("PumpendrehzahlMinimum_1", "Pumpendrehzahl Minimum", "~Intensity.100", 300);
