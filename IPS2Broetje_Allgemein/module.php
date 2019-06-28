@@ -51,7 +51,7 @@
                 parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2Broetje.BurnerOutput", "Information", "", "", 0, 3, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.BurnerOutput", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 0, "Unbekannt", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 1, "Teillast", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 2, "Volllast", "Information", -1);
