@@ -118,7 +118,7 @@
 		$this->RegisterVariableInteger("StatusCommand_1", "Status Sommer-/Winterheizgrenze", "IPS2Broetje.Status", 80);
 		$this->EnableAction("StatusCommand_1");
 		
-		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "~IPS2Broetje.HeatingLimit", 90);
+		$this->RegisterVariableFloat("Tagesheizgrenze", "Tagesheizgrenze", "IPS2Broetje.HeatingLimit", 90);
 		$this->EnableAction("Tagesheizgrenze");
 		
 		$this->RegisterVariableInteger("StatusCommand_2", "Status Tagesheizgrenze", "IPS2Broetje.Status", 100);
