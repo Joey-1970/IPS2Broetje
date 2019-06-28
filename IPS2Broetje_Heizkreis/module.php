@@ -165,12 +165,6 @@
 		$this->RegisterVariableFloat("Mischerueberhoehung", "Mischerüberhöhung", "IPS2Broetje.RoomTemperature", 290);
 		$this->EnableAction("Mischerueberhoehung");
 		
-		$this->RegisterVariableInteger("PumpendrehzahlMinimum_1", "Pumpendrehzahl Minimum", "~Intensity.100", 300);
-           	$this->EnableAction("PumpendrehzahlMinimum_1");
-		
-		$this->RegisterVariableInteger("PumpendrehzahlMaximum_1", "Pumpendrehzahl Maximum", "~Intensity.100", 310);
-           	$this->EnableAction("PumpendrehzahlMaximum_1");
-		
 		$this->RegisterVariableBoolean("Heizkreispumpe", "Heizkreispumpe", "~Switch", 320);
 		$this->RegisterVariableInteger("Status_10", "Status Heizkreispumpe", "IPS2Broetje.Status", 330);
 		
