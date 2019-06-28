@@ -81,6 +81,8 @@
 		
 		$this->RegisterProfileFloat("IPS2Broetje.CharacteristicCurveShift", "Temperature", "", " °C", -4.5, 4.5, 0.1, 1);
 		
+		$this->RegisterProfileFloat("IPS2Broetje.CharacteristicSlope", "Temperature", "", " °C", 0.1, 4, 0.1, 1);
+		
 		$this->RegisterProfileFloat("IPS2Broetje.HeatingLimit", "Temperature", "", " °C", -10, 10, 0.1, 1);
 		
 		$this->RegisterProfileFloat("IPS2Broetje.Preheat", "Temperature", "", " °C", 8, 95, 0.1, 1);
@@ -104,7 +106,7 @@
 		$this->RegisterVariableFloat("Frostschutzsollwert", "Frostschutz-Sollwert", "IPS2Broetje.TemperatureSetpoint", 40);
 		$this->EnableAction("Frostschutzsollwert");
 		
-		$this->RegisterVariableFloat("KennlinieSteilheit", "Kennlinie Steilheit", "", 50);
+		$this->RegisterVariableFloat("KennlinieSteilheit", "Kennlinie Steilheit", "IPS2Broetje.CharacteristicSlope", 50);
 		$this->EnableAction("KennlinieSteilheit");
 		
 		$this->RegisterVariableFloat("KennlinieVerschiebung", "Kennlinien Verschiebung", "IPS2Broetje.CharacteristicCurveShift", 60);
