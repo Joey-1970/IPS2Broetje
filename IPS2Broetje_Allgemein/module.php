@@ -116,15 +116,30 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-  		switch($Ident) {
-	        case "State":
-			If ($Value <> GetValueBoolean($this->GetIDForIdent("State"))) {
-				$this->KeyPress();
+  		If ($this->ReadPropertyBoolean("Open") == true) {
+			switch($Ident) {
+				case "ResetAlarmrelais":
+					$this->SetData(35862, $Value);
+				    break;
+			   	case "Schornsteinfegerfunktion":
+					$this->SetData(35901, $Value);
+				    break;
+				case "Brennerleistung":
+					$this->SetData(35903, $Value);
+				    break;
+				case "Handbetrieb":
+					$this->SetData(35904, $Value);
+				    break;
+				case "Reglerstoppfunktion":
+					$this->SetData(35905, $Value);
+				    break;
+				case "ReglerstoppSollwert":
+					$this->SetData(35906, $Value);
+				    break;
+			default:
+			    throw new Exception("Invalid Ident");
 			}
-	            break;
-	        default:
-	            throw new Exception("Invalid Ident");
-	    	}
+		}
 	}
 	    
 	public function ReceiveData($JSONString) 
@@ -219,6 +234,17 @@
 			}
 		}
 	}  
+	    
+	public function SetData(int $Address, int $Payload)
+	{
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$Function = 6;
+			$Quantity = 1;
+			$Address = $Address;
+			$SendPayload = chr($Payload >> 8).chr($Payload & 255);
+			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($SendPayload) ), JSON_UNESCAPED_UNICODE ));
+		}
+	}
 	    
 	private function bin16dec($dec) 
 	{
