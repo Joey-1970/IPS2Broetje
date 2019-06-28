@@ -57,7 +57,7 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 2, "Volllast", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 3, "Maximale Heizleistung", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
