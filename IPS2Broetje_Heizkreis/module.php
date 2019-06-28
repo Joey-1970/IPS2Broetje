@@ -323,8 +323,9 @@
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
 			// {"DataID":"{E310B701-4AE7-458E-B618-EC13A1A6F6A8}","Function":4,"Address":1024,"Quantity":1,"Data":""}
 			foreach ($StatusVariables as $Key => $Values) {
+				$HeatingCircuit = $this->ReadPropertyInteger("HeatingCircuit");
 				$Function = 3;
-				$Address = $Key;
+				$Address = ($Key + $HeatingCircuit);
 				$Quantity = 1;
 				$Name = $Values[0];
 				$Devisor = intval($Values[1]);
@@ -354,8 +355,10 @@
 	public function SetData(int $Address, int $Payload)
 	{
 		If ($this->ReadPropertyBoolean("Open") == true) {
+			$HeatingCircuit = $this->ReadPropertyInteger("HeatingCircuit");
 			$Function = 6;
 			$Quantity = 1;
+			$Address = $Address + $HeatingCircuit;
 			$SendPayload = chr($Payload >> 8).chr($Payload & 255);
 			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($SendPayload) ), JSON_UNESCAPED_UNICODE ));
 
