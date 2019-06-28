@@ -148,18 +148,18 @@
 			$Response = false;
 			$StatusVariables = array();
 			$StatusVariables = array(
-					35851 => array("AussenTemperatur", 64), 
-					35852 => array("StatusCommand_1", 1),
-    					35862 => array("ResetAlarmrelais", 1), 
-					35887 => array("StatusAlarmrelais", 1), 
-    					35888 => array("StatusCommand_2", 1), 
-					35901 => array("Schornsteinfegerfunktion", 1),
-    					35903 => array("Brennerleistung", 1),
-					35904 => array("Handbetrieb", 1),
-					35905 => array("Reglerstoppfunktion", 1),
-					35906 => array("ReglerstoppSollwert", 1),
-					37981 => array("Wasserdruck", 10),
-					37982 => array("StatusCommand_3", 1),
+					35851 => array("AussenTemperatur", 64, 1), 
+					35852 => array("StatusCommand_1", 1, 0),
+    					35862 => array("ResetAlarmrelais", 1, 0), 
+					35887 => array("StatusAlarmrelais", 1, 0), 
+    					35888 => array("StatusCommand_2", 1, 0), 
+					35901 => array("Schornsteinfegerfunktion", 1, 0),
+    					35903 => array("Brennerleistung", 1, 0),
+					35904 => array("Handbetrieb", 1, 0),
+					35905 => array("Reglerstoppfunktion", 1, 0),
+					35906 => array("ReglerstoppSollwert", 1, 0),
+					37981 => array("Wasserdruck", 10, 0),
+					37982 => array("StatusCommand_3", 1, 0),
 					);
 			
 			SetValueInteger($this->GetIDForIdent("LastUpdate"), time() );
@@ -170,14 +170,23 @@
 				$Quantity = 1;
 				$Name = $Values[0];
 				$Devisor = floatval($Values[1]);
+				$Signed = intval($Values[2]);
 				$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => ":")));
 				$Result = (unpack("n*", substr($Result,2)));
 				If (is_array($Result)) {
 					If (count($Result) == 1) {
 						$Response = $Result[1];
-						$this->SendDebug("GetData", $Name.": ".($Response/$Devisor), 0);
-						If (GetValue($this->GetIDForIdent($Name)) <> ($Response/$Devisor)) {
-							SetValue($this->GetIDForIdent($Name), ($Response/$Devisor));
+						
+						If ($Signed == 0) {
+							$Value = ($Response/$Devisor);
+						}
+						else {
+							$Value = $this->bin16dec($Response/$Devisor);
+						}
+						
+						$this->SendDebug("GetData", $Name.": ".$Value, 0);
+						If (GetValue($this->GetIDForIdent($Name)) <> $Value) {
+							SetValue($this->GetIDForIdent($Name), $Value);
 						}
 					}
 				}
@@ -211,6 +220,16 @@
 		}
 	}  
 	    
+	private function bin16dec($dec) 
+	{
+	    	// converts 16bit binary number string to integer using two's complement
+	    	$BinString = decbin($dec);
+		$DecNumber = bindec($BinString) & 0xFFFF; // only use bottom 16 bits
+	    	If (0x8000 & $DecNumber) {
+			$DecNumber = - (0x010000 - $DecNumber);
+	    	}
+	return $DecNumber;
+	}      
 	    
 	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
