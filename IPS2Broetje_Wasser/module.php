@@ -142,15 +142,15 @@
 	
 	public function RequestAction($Ident, $Value) 
 	{
-  		switch($Ident) {
-	        case "State":
-			If ($Value <> GetValueBoolean($this->GetIDForIdent("State"))) {
-				$this->KeyPress();
+  		If ($this->ReadPropertyBoolean("Open") == true) {
+			switch($Ident) {
+				case "Betriebsart":
+					$this->SetData(10240, $Value);
+				    break;
+			default:
+			    throw new Exception("Invalid Ident");
 			}
-	            break;
-	        default:
-	            throw new Exception("Invalid Ident");
-	    	}
+		}
 	}
 	    
 	public function ReceiveData($JSONString) 
