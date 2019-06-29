@@ -51,22 +51,22 @@
                 parent::ApplyChanges();
 		
 		// Profile anlegen
-		$this->RegisterProfileInteger("IPS2Broetje.OperatingModeWater", "Information", "", "", 0, 2, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.OperatingModeWater", "Information", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 0, "Aus", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 1, "Ein", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.OperatingModeWater", 2, "Eco", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.Release", "Information", "", "", 0, 2, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.Release", "Information", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 0, "24h/Tagh", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 1, "Zeitprogramme Heizkreise", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Release", 2, "Zeitprogramm 4/TWW", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaFunction", "Information", "", "", 0, 2, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.LegionellaFunction", "Information", "", "", 0, 2, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 0, "Aus", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 1, "Periodisch", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaFunction", 2, "Fixer Wochentag", "Information", -1);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 1, 7, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.LegionellaWeekday", "Information", "", "", 1, 7, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 1, "Montag", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 2, "Dienstag", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 3, "Mittwoch", "Information", -1);
@@ -111,7 +111,7 @@
 		$this->EnableAction("LegionellenFunktionZeitpunkt");
 		
 		$this->RegisterVariableInteger("StatusCommand_1", "Status Legionellenfunktion Zeitpunkt", "IPS2Broetje.Status", 90);
-		$this->EnableAction("StatusCommand_1");
+		//$this->EnableAction("StatusCommand_1");
 		
 		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
 		$this->EnableAction("Legionellenfunktionsollwert");
@@ -120,7 +120,7 @@
 		$this->EnableAction("LegionellenFunktionVerweildauer");
 		
 		$this->RegisterVariableInteger("StatusCommand_2", "Status Legionellenfunktion Verweildauer", "IPS2Broetje.Status", 120);
-		$this->EnableAction("StatusCommand_2");
+		//$this->EnableAction("StatusCommand_2");
 		
 		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "~Temperature", 130);
 		$this->EnableAction("Zirkulationssollwert");
