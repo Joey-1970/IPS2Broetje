@@ -81,7 +81,11 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 2, "Kurzschluß", "Alert", 0xFF0000);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 64, "Fehlerhaft", "Alert", 0xFF0000);
 		
-		$this->RegisterProfileInteger("IPS2Broetje.Minuten", "Clock", "", " min", 0, 360, 1);
+		$this->RegisterProfileInteger("IPS2Broetje.Minuten", "Clock", "", " min", 2, 360, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.WaterTemperature", "Temperature", "", " °C", 8, 80, 0.1, 1);
+		
+		$this->RegisterProfileFloat("IPS2Broetje.LegionellaTemperature", "Temperature", "", " °C", 55, 95, 0.1, 1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableInteger("LastUpdate", "Letztes Update", "~UnixTimestamp", 5);
@@ -89,10 +93,10 @@
 		$this->RegisterVariableInteger("Betriebsart", "Betriebsart", "IPS2Broetje.OperatingModeWater", 10);
 		$this->EnableAction("Betriebsart");
 		
-		$this->RegisterVariableFloat("Nennsollwert", "Nenn-Sollwert", "~Temperature", 20);
+		$this->RegisterVariableFloat("Nennsollwert", "Nenn-Sollwert", "IPS2Broetje.WaterTemperature", 20);
 		$this->EnableAction("Nennsollwert");
 		
-		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "~Temperature", 30);
+		$this->RegisterVariableFloat("Reduziertsollwert", "Reduzierter-Sollwert", "IPS2Broetje.WaterTemperature", 30);
 		$this->EnableAction("Reduziertsollwert");
 		
 		$this->RegisterVariableInteger("Freigabe", "Freigabe", "IPS2Broetje.Release", 40);
@@ -113,7 +117,7 @@
 		$this->RegisterVariableInteger("StatusCommand_1", "Status Legionellenfunktion Zeitpunkt", "IPS2Broetje.Status", 90);
 		//$this->EnableAction("StatusCommand_1");
 		
-		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "~Temperature", 100);
+		$this->RegisterVariableFloat("Legionellenfunktionsollwert", "Legionellenfunktion-Sollwert", "IPS2Broetje.LegionellaTemperature", 100);
 		$this->EnableAction("Legionellenfunktionsollwert");
 		
 		$this->RegisterVariableInteger("LegionellenFunktionVerweildauer", "Legionellen Funktion Verweildauer", "IPS2Broetje.Minuten", 110);
@@ -122,7 +126,7 @@
 		$this->RegisterVariableInteger("StatusCommand_2", "Status Legionellenfunktion Verweildauer", "IPS2Broetje.Status", 120);
 		//$this->EnableAction("StatusCommand_2");
 		
-		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "~Temperature", 130);
+		$this->RegisterVariableFloat("Zirkulationssollwert", "Zirkulations-Sollwert", "IPS2Broetje.WaterTemperature", 130);
 		$this->EnableAction("Zirkulationssollwert");
 		
 		$this->RegisterVariableInteger("StatusTrinkwasser", "Status Trinkwasser", "", 140);
@@ -231,6 +235,24 @@
 			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($SendPayload) ), JSON_UNESCAPED_UNICODE ));
 		}
 	}    
+	
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
+	}        
 	    
 	private function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	{
