@@ -75,6 +75,8 @@
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 6, "Samstag", "Information", -1);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.LegionellaWeekday", 7, "Sonntag", "Information", -1);
 		
+		$this->RegisterProfileInteger("IPS2Broetje.LegionellaPeriodically", "Information", "", "", 1, 7, 0);
+		
 		$this->RegisterProfileInteger("IPS2Broetje.Status", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 0, "OK", "Information", 0x00FF00);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.Status", 1, "Inaktiv", "Alert", 0xFF0000);
@@ -105,7 +107,7 @@
 		$this->RegisterVariableInteger("LegionellenFunktion", "Legionellen Funktion", "IPS2Broetje.LegionellaFunction", 50);
 		$this->EnableAction("LegionellenFunktion");
 		
-		$this->RegisterVariableInteger("LegionellenFunktionPeriodisch", "Legionellen Funktion Periodisch", "", 60);
+		$this->RegisterVariableInteger("LegionellenFunktionPeriodisch", "Legionellen Funktion Periodisch", "IPS2Broetje.LegionellaPeriodically", 60);
 		$this->EnableAction("LegionellenFunktionPeriodisch");
 		
 		$this->RegisterVariableInteger("LegionellenFunktionWochentag", "Legionellen Funktion Wochentag", "IPS2Broetje.LegionellaWeekday", 70);
