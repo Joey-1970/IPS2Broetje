@@ -153,6 +153,36 @@
 				case "Betriebsart":
 					$this->SetData(10240, $Value);
 				    break;
+				case "Nennsollwert":
+					$this->SetData(10241, ($Value * 64));
+				    break;
+				case "Reduziertsollwert":
+					$this->SetData(10242, ($Value * 64));
+				    break;
+				case "Freigabe":
+					$this->SetData(10243, $Value);
+				    break;
+				case "LegionellenFunktion":
+					$this->SetData(10244, $Value);
+				    break;
+				case "LegionellenFunktionPeriodisch":
+					$this->SetData(10245, $Value);
+				    break;
+				case "LegionellenFunktionWochentag":
+					$this->SetData(10246, $Value);
+				    break;
+				case "LegionellenFunktionZeitpunkt":
+					//$this->SetData(10247, $Value);
+				    break;
+				case "Legionellenfunktionsollwert":
+					$this->SetData(10249, ($Value * 64));
+				    break;
+				case "LegionellenFunktionVerweildauer":
+					$this->SetData(10250, $Value);
+				    break;
+				case "Zirkulationssollwert":
+					$this->SetData(10263, ($Value * 64));
+				    break;
 			default:
 			    throw new Exception("Invalid Ident");
 			}
