@@ -2,18 +2,12 @@
     // Klassendefinition
     class IPS2Broetje_Wasserspeicher extends IPSModule 
     {
-	public function Destroy() 
-	{
-		//Never delete this line!
-		parent::Destroy();
-		$this->SetTimerInterval("Timer_1", 0);
-	}
-	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
             	// Diese Zeile nicht löschen.
             	parent::Create();
+		$this->RegisterMessage(0, IPS_KERNELSTARTED);
 		
 		$this->ConnectParent("{A5F663AB-C400-4FE5-B207-4D67CC030564}");
 	
@@ -110,9 +104,11 @@
 		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$this->GetState();
-			$this->SetStatus(102);
-			$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
+			If (IPS_GetKernelRunlevel() == KR_READY) {
+				$this->GetState();
+				$this->SetStatus(102);
+				$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
+			}
 		}
 		else {
 			$this->SetStatus(104);
@@ -140,6 +136,17 @@
 	    	$data = json_decode($JSONString);
 	 	$this->SendDebug("ReceiveData", $data, 0);
  	}
+	    
+	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    	{
+		switch ($Message) {
+			case 10001:
+				// IPS_KERNELSTARTED
+				$this->ApplyChanges();
+				break;
+			
+		}
+    	} 
 	
 	// Beginn der Funktionen
 	public function GetState()
