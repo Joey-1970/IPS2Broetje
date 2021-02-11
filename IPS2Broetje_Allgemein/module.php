@@ -208,7 +208,7 @@
 							// Aussentemperatur
 							If ($Value >> 9 == 1) {
 								// Vorzeichenbit ist gesetzt - Wert ist negativ
-								$Value = 1024 - $Value;
+								$Value = -1 * (1024 - $Value);
 							}
 						}
 						
