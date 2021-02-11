@@ -204,7 +204,15 @@
 							$Value = $this->bin16dec($Response/$Devisor);
 						}
 						
-						$this->SendDebug("GetData nachher ", $Name.": ".$Value, 0);
+						If ($Key == 35851) {
+							// Aussentemperatur
+							If ($Value >> 9 == 1) {
+								// Vorzeichenbit ist gesetzt - Wert ist negativ
+								$Value = 1024 - $Value;
+							}
+						}
+						
+						$this->SendDebug("GetData", $Name.": ".$Value, 0);
 						If ($this->GetValue($Name) <> $Value) {
 							$this->SetValue($Name, $Value);
 						}
