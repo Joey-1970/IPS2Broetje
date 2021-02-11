@@ -197,6 +197,8 @@
 					If (count($Result) == 1) {
 						$Response = $Result[1];
 						
+						$this->SendDebug("GetData vorher ", $Name.": ".$Value, 0);
+						
 						If ($Signed == 0) {
 							$Value = ($Response/$Devisor);
 						}
@@ -204,7 +206,7 @@
 							$Value = $this->bin16dec($Response/$Devisor);
 						}
 						
-						$this->SendDebug("GetData", $Name.": ".$Value, 0);
+						$this->SendDebug("GetData nachher ", $Name.": ".$Value, 0);
 						If ($this->GetValue($Name) <> $Value) {
 							$this->SetValue($Name, $Value);
 						}
@@ -308,17 +310,5 @@
 		$Status = (IPS_GetInstance($this->GetParentID())['InstanceStatus']);  
 	return $Status;
 	}
-	    
-	protected function HasActiveParent()
-    	{
-		$Instance = @IPS_GetInstance($this->InstanceID);
-		if ($Instance['ConnectionID'] > 0)
-		{
-			$Parent = IPS_GetInstance($Instance['ConnectionID']);
-			if ($Parent['InstanceStatus'] == 102)
-			return true;
-		}
-        return false;
-    	}  
 }
 ?>
