@@ -197,8 +197,6 @@
 					If (count($Result) == 1) {
 						$Response = $Result[1];
 						
-						$this->SendDebug("GetData vorher ", $Name.": ".$Value, 0);
-						
 						If ($Signed == 0) {
 							$Value = ($Response/$Devisor);
 						}
