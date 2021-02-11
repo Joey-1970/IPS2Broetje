@@ -15,35 +15,6 @@
 		$this->RegisterPropertyInteger("Timer_1", 60);
 		$this->RegisterTimer("Timer_1", 0, 'IPS2BroetjeAllgemein_GetState($_IPS["TARGET"]);');
 		
-		
-		//Status-Variablen anlegen
-		
-        }
-       	
-	public function GetConfigurationForm() { 
-		$arrayStatus = array(); 
-		$arrayStatus[] = array("code" => 101, "icon" => "inactive", "caption" => "Instanz wird erstellt"); 
-		$arrayStatus[] = array("code" => 102, "icon" => "active", "caption" => "Instanz ist aktiv");
-		$arrayStatus[] = array("code" => 104, "icon" => "inactive", "caption" => "Instanz ist inaktiv");
-		$arrayStatus[] = array("code" => 200, "icon" => "error", "caption" => "Instanz ist fehlerhaft"); 
-		$arrayStatus[] = array("code" => 202, "icon" => "error", "caption" => "Kommunikationfehler!");
-		
-		$arrayElements = array(); 
-		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
- 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");		
-		$arrayElements[] = array("type" => "Label", "label" => "Auslesezyklus (Sekunden)");
-		$arrayElements[] = array("type" => "IntervalBox", "name" => "Timer_1", "caption" => "s");
-		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
-		 
-		return JSON_encode(array("status" => $arrayStatus, "elements" => $arrayElements)); 		 
- 	} 
-	
-	// Überschreibt die intere IPS_ApplyChanges($id) Funktion
-        public function ApplyChanges() 
-        {
-                // Diese Zeile nicht löschen
-                parent::ApplyChanges();
-		
 		// Profile anlegen
 		$this->RegisterProfileInteger("IPS2Broetje.BurnerOutput", "Information", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("IPS2Broetje.BurnerOutput", 0, "Unbekannt", "Information", -1);
@@ -95,6 +66,33 @@
 		
 		// Uhrzeit und Datum
 		$this->RegisterVariableInteger("Systemzeit", "Systemzeit", "~UnixTimestamp", 130);
+		
+		
+        }
+       	
+	public function GetConfigurationForm() { 
+		$arrayStatus = array(); 
+		$arrayStatus[] = array("code" => 101, "icon" => "inactive", "caption" => "Instanz wird erstellt"); 
+		$arrayStatus[] = array("code" => 102, "icon" => "active", "caption" => "Instanz ist aktiv");
+		$arrayStatus[] = array("code" => 104, "icon" => "inactive", "caption" => "Instanz ist inaktiv");
+		$arrayStatus[] = array("code" => 200, "icon" => "error", "caption" => "Instanz ist fehlerhaft"); 
+		$arrayStatus[] = array("code" => 202, "icon" => "error", "caption" => "Kommunikationfehler!");
+		
+		$arrayElements = array(); 
+		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
+ 		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");		
+		$arrayElements[] = array("type" => "Label", "label" => "Auslesezyklus (Sekunden)");
+		$arrayElements[] = array("type" => "IntervalBox", "name" => "Timer_1", "caption" => "s");
+		$arrayElements[] = array("type" => "Label", "label" => "_____________________________________________________________________________________________________");
+		 
+		return JSON_encode(array("status" => $arrayStatus, "elements" => $arrayElements)); 		 
+ 	} 
+	
+	// Überschreibt die intere IPS_ApplyChanges($id) Funktion
+        public function ApplyChanges() 
+        {
+                // Diese Zeile nicht löschen
+                parent::ApplyChanges();
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			If (IPS_GetKernelRunlevel() == KR_READY) {
@@ -207,8 +205,8 @@
 						}
 						
 						$this->SendDebug("GetData", $Name.": ".$Value, 0);
-						If (GetValue($this->GetIDForIdent($Name)) <> $Value) {
-							SetValue($this->GetIDForIdent($Name), $Value);
+						If ($this->GetValue($Name) <> $Value) {
+							$this->SetValue($Name, $Value);
 						}
 					}
 				}
