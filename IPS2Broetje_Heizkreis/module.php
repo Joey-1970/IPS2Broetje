@@ -152,6 +152,7 @@
 		$this->RegisterVariableInteger("Status_9", "Status Raumthermostat", "IPS2Broetje.Status", 260);
 		
 		$this->RegisterVariableInteger("StatusHeizkreis", "Status Heizkreis", "", 270);
+		$this->RegisterVariableInteger("StatusHeizkreisText", "Status Heizkreis", "", 275);
 		
 		$this->RegisterVariableBoolean("Heizkreis", "Heizkreis", "~Switch", 280);
 	        $this->EnableAction("Heizkreis");
@@ -379,9 +380,9 @@
 	return $DecNumber;
 	} 
 	    
-	private function GetStatusCode(int $StatusCode)
+	private function GetStatusCodeText(int $StatusCodeNumber)
 	{
-		$StatusCodes = array(0 => "---", 1 => "STB angesprochen", 2 => "Störung", 3 => "Wächter angesprochen", 4 => "Handbetrieb aktiv", 
+		$StatusCodeText = array(0 => "---", 1 => "STB angesprochen", 2 => "Störung", 3 => "Wächter angesprochen", 4 => "Handbetrieb aktiv", 
 				     5 => "Schornsteinfegerfkt,Volllast", 6 => "Schornsteinfegerfkt,Teillast", 7 => "Schornsteinfegerfkt aktiv", 
 				     8 => "Gesperrt, manuell", 9 => "Gesperrt, automatisch", 10 => "Gesperrt", 11 => "Anfahrentlastung", 
 				     12 => "Anfahrentlastung, Teillast", 13 => "Rücklaufbegrenzung", 14 => "Rücklaufbegrenzung, Teillast", 
@@ -468,8 +469,14 @@
 				     293 => "Manueller Betrieb", 294 => "Gesperrt, Leistungszahl Min", 295 => "Gesperrt, Energiepreis", 
 				     296 => "Passiver Kühlbetr gesperrt", 297 => "Ström'wächter Zus'erzeuger", 298 => "Wärmerfunktion aktiv", 
 				     299 => "Kälterfunktion aktiv", 300 => "Gegenwindfunktion aktiv");
+		If (array_key_exists($StatusCodeNumber, $StatusCodeText)) {
+			$StatusText = $StatusCodeText[$StatusCodeNumber];
+		}
+		else {
+			$StatusText = "Unbekannter StatusCode -".$StatusCodeNumber;
+		}
 		
-	return;
+	return $StatusText;
 	}    
 	    
 	    
