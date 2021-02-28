@@ -253,7 +253,7 @@
 							}
 							
 							If ($Name == "StatusTrinkwasser") {
-								$this->SetValue("StatusTrinkwasserText", $this->GetStatusCodeText($Value));
+								$this->SetValue("StatusTrinkwasserText", $this->GetStatusCodeText($Response/$Devisor));
 							}
 						}
 						else {
