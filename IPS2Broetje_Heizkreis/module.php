@@ -152,7 +152,7 @@
 		$this->RegisterVariableInteger("Status_9", "Status Raumthermostat", "IPS2Broetje.Status", 260);
 		
 		$this->RegisterVariableInteger("StatusHeizkreis", "Status Heizkreis", "", 270);
-		$this->RegisterVariableInteger("StatusHeizkreisText", "Status Heizkreis", "", 275);
+		$this->RegisterVariableString("StatusHeizkreisText", "Status Heizkreis", "", 275);
 		
 		$this->RegisterVariableBoolean("Heizkreis", "Heizkreis", "~Switch", 280);
 	        $this->EnableAction("Heizkreis");
