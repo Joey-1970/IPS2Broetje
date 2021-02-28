@@ -347,9 +347,14 @@
 							$Value = $this->bin16dec($Response/$Devisor);
 						}
 						$this->SendDebug("GetData", $Name.": ".$Value, 0);
-						If (GetValue($this->GetIDForIdent($Name)) <> $Value) {
-							SetValue($this->GetIDForIdent($Name), $Value);
-						}					
+						If ($this->GetValue($Name) <> $Value) {
+							$this->SetValue($Name, $Value);
+							
+							If ($Name == "StatusHeizkreis") {
+								$this->SetValue("StatusHeizkreisText", $this->GetStatusCodeText($Value));
+							}
+						}
+						
 					}
 				}
 			}
