@@ -278,6 +278,7 @@
 			$Address = $Address;
 			$SendPayload = chr($Payload >> 8).chr($Payload & 255);
 			$Result = $this->SendDataToParent(json_encode(Array("DataID"=> "{E310B701-4AE7-458E-B618-EC13A1A6F6A8}", "Function" => $Function, "Address" => $Address, "Quantity" => $Quantity, "Data" => utf8_encode($SendPayload) ), JSON_UNESCAPED_UNICODE ));
+			$this->GetData();
 		}
 	}    
 	
