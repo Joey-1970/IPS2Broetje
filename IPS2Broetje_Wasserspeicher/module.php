@@ -130,13 +130,6 @@
 	    	}
 	}
 	    
-	public function ReceiveData($JSONString) 
-	{
-	    	// Empfangene Daten vom Gateway/Splitter
-	    	$data = json_decode($JSONString);
-	 	$this->SendDebug("ReceiveData", $data, 0);
- 	}
-	    
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     	{
 		switch ($Message) {
