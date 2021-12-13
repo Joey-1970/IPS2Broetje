@@ -128,12 +128,10 @@
 		$this->RegisterVariableInteger("StatusTrinkwasser", "Status Trinkwasser", "", 140);
 		$this->RegisterVariableString("StatusTrinkwasserText", "Status Trinkwasser", "", 275);	
 		
-		If ($this->ReadPropertyBoolean("Open") == true) {
-			If (IPS_GetKernelRunlevel() == KR_READY) {
-				$this->GetState();
-				$this->SetStatus(102);
-				$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
-			}
+		If ((IPS_GetKernelRunlevel() == KR_READY) AND ($this->ReadPropertyBoolean("Open") == true)) {
+			$this->GetState();
+			$this->SetStatus(102);
+			$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
 		}
 		else {
 			$this->SetStatus(104);
@@ -190,11 +188,18 @@
 		switch ($Message) {
 			case 10001:
 				// IPS_KERNELSTARTED
-				$this->ApplyChanges();
+				If ($this->ReadPropertyBoolean("Open") == true) {
+					$this->GetState();
+					$this->SetStatus(102);
+					$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
+				}
+				else {
+					$this->SetStatus(104);
+					$this->SetTimerInterval("Timer_1", 0);
+				}
 				break;
-			
 		}
-    	}     
+    	} 
 	
 	// Beginn der Funktionen
 	public function GetState()
