@@ -105,11 +105,15 @@
 		
 		If ((IPS_GetKernelRunlevel() == KR_READY) AND ($this->ReadPropertyBoolean("Open") == true)) {
 			$this->GetState();
-			$this->SetStatus(102);
+			If ($this->GetStatus() <> 102) {
+				$this->SetStatus(102);
+			}
 			$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
 		}
 		else {
-			$this->SetStatus(104);
+			If ($this->GetStatus() <> 104) {
+				$this->SetStatus(104);
+			}
 			$this->SetTimerInterval("Timer_1", 0);
 		}
 		
@@ -135,11 +139,15 @@
 				// IPS_KERNELSTARTED
 				If ($this->ReadPropertyBoolean("Open") == true) {
 					$this->GetState();
-					$this->SetStatus(102);
+					If ($this->GetStatus() <> 102) {
+						$this->SetStatus(102);
+					}
 					$this->SetTimerInterval("Timer_1", $this->ReadPropertyInteger("Timer_1") );
 				}
 				else {
-					$this->SetStatus(104);
+					If ($this->GetStatus() <> 104) {
+						$this->SetStatus(104);
+					}
 					$this->SetTimerInterval("Timer_1", 0);
 				}
 				break;
